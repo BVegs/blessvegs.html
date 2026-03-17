@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bless Vegs</title>
-<link rel="manifest" href="manifest.json">
 <style>
 body{font-family:Arial;margin:0;background:#eef5ee}
 header{background:#2f7d32;color:white;text-align:center;padding:18px;font-size:24px}
@@ -32,48 +31,38 @@ button{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;cur
 
 <div class="card">
 <h3>🧑‍🌾 Klantgegevens</h3>
-<label>Naam</label>
 <input id="naam" placeholder="Naam">
-<label>Adres</label>
 <textarea id="adres" placeholder="Adres"></textarea>
 </div>
 
 <div class="card">
-<h3>🥦 Groenten bestellen</h3>
+<h3>🥦 Groenten</h3>
 <div id="productlijst"></div>
-<div class="total">Totaal: €<span id="totaal">0.00</span></div>
-<button class="whatsapp" onclick="bestelWhatsApp()">Bestellen via WhatsApp</button>
-<button class="tikkie" onclick="betaalTikkie()">Betaal met Tikkie</button>
+<div class="total">€ <span id="totaal">0.00</span></div>
+<button class="whatsapp" onclick="bestel()">Bestellen via WhatsApp</button>
 </div>
 
 <div class="card">
-<h3>📦 Wekelijkse groentepakketten</h3>
-<div class="product">
-<div class="info">Klein pakket €10</div>
-<input class="qty" type="number" id="pakket_klein" value="0" min="0">
-</div>
-
-<div class="product">
-<div class="info">Groot pakket €15</div>
-<input class="qty" type="number" id="pakket_groot" value="0" min="0">
-</div>
+<h3>📦 Groentepakket (1 klik)</h3>
+<button onclick="pakket('klein')">Klein pakket €10</button>
+<button onclick="pakket('groot')">Groot pakket €15</button>
 </div>
 
 <div class="card">
-<h3>⚙️ Beheer (voor Bless Vegs)</h3>
-<button class="adminbtn" onclick="toggleAdmin()">Open beheer</button>
+<h3>⚙️ Admin</h3>
+<button class="adminbtn" onclick="loginAdmin()">Login</button>
 <div id="admin" class="hidden">
+<h4>📊 Dashboard</h4>
+<div id="dashboard"></div>
 
-<h4>Nieuw product toevoegen</h4>
-<input id="nieuwNaam" placeholder="Naam groente">
-<input id="nieuwPrijs" placeholder="Prijs per kilo">
-<input id="nieuwVoorraad" placeholder="Voorraad kg">
+<h4>➕ Product</h4>
+<input id="nieuwNaam" placeholder="Naam">
+<input id="nieuwPrijs" placeholder="Prijs">
+<input id="nieuwVoorraad" placeholder="Voorraad">
 <input id="nieuwFoto" placeholder="Foto link">
-<button onclick="productToevoegen()">Product toevoegen</button>
+<button onclick="toevoegen()">Toevoegen</button>
 
-<h4>Producten beheren</h4>
 <div id="adminlijst"></div>
-
 </div>
 </div>
 
@@ -81,121 +70,102 @@ button{width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;cur
 
 <script>
 
-const whatsappNummer = "31685122481"
-const tikkieLink = "https://tikkie.me/pay/example"
+const nummer="31685122481"
+let omzet=0
+let bestellingen=0
 
 let producten=[
-{name:"Antroewa",prijs:4,voorraad:20,id:"antroewa",foto:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Garden_egg.jpg"},
-{name:"Amsoi",prijs:3,voorraad:15,id:"amsoi",foto:"https://upload.wikimedia.org/wikipedia/commons/2/2d/Choy_sum.jpg"},
-{name:"Bitawieri",prijs:3.5,voorraad:15,id:"bitawieri",foto:"https://upload.wikimedia.org/wikipedia/commons/3/37/Amaranthus_leaves.jpg"},
-{name:"Klaroen",prijs:3.5,voorraad:10,id:"klaroen",foto:"https://upload.wikimedia.org/wikipedia/commons/3/37/Amaranthus_leaves.jpg"},
-{name:"Surinaamse selderij",prijs:2.5,voorraad:12,id:"selderij",foto:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Celery.jpg"}
+{name:"Antroewa",prijs:4,voorraad:20,id:"a"},
+{name:"Amsoi",prijs:3,voorraad:15,id:"b"},
+{name:"Bitawieri",prijs:3.5,voorraad:15,id:"c"}
 ]
 
 function render(){
 let html=""
-
 producten.forEach(p=>{
-html+=`<div class="product">
-<img src="${p.foto}">
-<div class="info">
-<b>${p.name}</b><br>
-€${p.prijs} per kg <span class="stock">(${p.voorraad} kg beschikbaar)</span>
-</div>
-<input class="qty" type="number" id="${p.id}" value="0" min="0">
+html+=`<div class='product'>
+<div class='info'>${p.name} €${p.prijs} (${p.voorraad})</div>
+<input id='${p.id}' class='qty' type='number' value='0'>
 </div>`
 })
-
 document.getElementById("productlijst").innerHTML=html
 
 let admin=""
 producten.forEach((p,i)=>{
-admin+=`${p.name} – €${p.prijs} – voorraad ${p.voorraad}kg <button onclick="verwijder(${i})">Verwijder</button><br>`
+admin+=`${p.name} €${p.prijs} (${p.voorraad}) <button onclick='del(${i})'>x</button><br>`
 })
-
 document.getElementById("adminlijst").innerHTML=admin
+
+updateDashboard()
 }
 
-render()
+function updateDashboard(){
+document.getElementById("dashboard").innerHTML=
+`Omzet: €${omzet.toFixed(2)}<br>Bestellingen: ${bestellingen}`
+}
 
-setInterval(bereken,500)
+setInterval(()=>{
+let t=0
+producten.forEach(p=>{
+let v=document.getElementById(p.id)
+if(v) t+=v.value*p.prijs
+})
+document.getElementById("totaal").innerText=t.toFixed(2)
+},500)
 
-function bereken(){
+function bestel(){
 let totaal=0
-
+let msg="Bestelling:%0A"
 producten.forEach(p=>{
-let veld=document.getElementById(p.id)
-if(veld){
-totaal+=veld.value*p.prijs
+let v=document.getElementById(p.id).value
+if(v>0){
+totaal+=v*p.prijs
+p.voorraad-=v
+msg+=`${p.name} ${v}kg%0A`
 }
 })
 
-let klein=document.getElementById("pakket_klein").value
-let groot=document.getElementById("pakket_groot").value
+if(totaal<10){alert("Minimum bestelling €10");return}
 
-totaal+=klein*10
-totaal+=groot*15
+omzet+=totaal
+bestellingen++
 
-document.getElementById("totaal").innerText=totaal.toFixed(2)
+msg+=`Totaal €${totaal}`
+window.open(`https://wa.me/${nummer}?text=${msg}`)
+render()
 }
 
-function bestelWhatsApp(){
-
-let naam=document.getElementById("naam").value
-let adres=document.getElementById("adres").value
-
-let bericht=`Nieuwe bestelling Bless Vegs%0A`
-bericht+=`Naam: ${naam}%0A`
-bericht+=`Adres: ${adres}%0A%0A`
-
-producten.forEach(p=>{
-let aantal=document.getElementById(p.id).value
-if(aantal>0){
-bericht+=`${p.name}: ${aantal} kg%0A`
-}
-})
-
-let klein=document.getElementById("pakket_klein").value
-let groot=document.getElementById("pakket_groot").value
-
-if(klein>0) bericht+=`Klein pakket x${klein}%0A`
-if(groot>0) bericht+=`Groot pakket x${groot}%0A`
-
-bericht+=`%0ATotaal: €${document.getElementById("totaal").innerText}`
-
-window.open(`https://wa.me/${whatsappNummer}?text=${bericht}`)
-
+function pakket(type){
+let totaal= type=="klein"?10:15
+omzet+=totaal
+bestellingen++
+window.open(`https://wa.me/${nummer}?text=Groentepakket ${type} €${totaal}`)
+updateDashboard()
 }
 
-function betaalTikkie(){
-let bedrag=document.getElementById("totaal").innerText
-window.open(`${tikkieLink}?amount=${bedrag}`)
+function loginAdmin(){
+let p=prompt("wachtwoord")
+if(p=="bless123"){
+document.getElementById("admin").classList.remove("hidden")
+}else alert("fout")
 }
 
-function toggleAdmin(){
-let a=document.getElementById("admin")
-a.classList.toggle("hidden")
+function toevoegen(){
+let n=document.getElementById("nieuwNaam").value
+let p=parseFloat(document.getElementById("nieuwPrijs").value)
+let v=parseInt(document.getElementById("nieuwVoorraad").value)
+producten.push({name:n,prijs:p,voorraad:v,id:n})
+render()
 }
 
-function productToevoegen(){
-
-let naam=document.getElementById("nieuwNaam").value
-let prijs=parseFloat(document.getElementById("nieuwPrijs").value)
-let voorraad=parseInt(document.getElementById("nieuwVoorraad").value)
-let foto=document.getElementById("nieuwFoto").value
-
-let id=naam.toLowerCase().replace(/ /g,"")
-
-producten.push({name:naam,prijs:prijs,voorraad:voorraad,id:id,foto:foto})
+function del(i){producten.splice(i,1);render()}
 
 render()
 
-}
+</script>
 
-function verwijder(i){
-producten.splice(i,1)
-render()
-}
+</body>
+</html>
 
 </script>
 
