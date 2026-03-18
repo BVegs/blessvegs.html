@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -10,479 +9,298 @@
   <meta property="og:title" content="Bless Vegs" />
   <meta property="og:description" content="Puur uit de tuin, met liefde geteeld" />
   <meta property="og:image" content="blessvegs-logo.png" />
+  <!-- Upload blessvegs-logo.png in dezelfde map als index.html -->
   <meta property="og:type" content="website" />
   <style>
-    :root{
-      --green:#1b5e20;
-      --green2:#2e7d32;
-      --bg:#eef7ee;
-      --card:#ffffff;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --orange:#f97316;
-      --shadow:0 10px 24px rgba(0,0,0,.08);
-      --line:#e5e7eb;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+    :root{--green:#1b5e20;--green2:#2e7d32;--bg:#eef7ee;--card:#fff;--text:#1f2937;--muted:#6b7280;--orange:#f97316;--shadow:0 10px 24px rgba(0,0,0,.08);--line:#e5e7eb;--red:#b91c1c;--yellow:#b45309}
+    *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
     header{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;text-align:center;padding:24px 16px}
     .header-logo{width:min(100%,560px);max-height:260px;object-fit:cover;border-radius:22px;display:block;margin:0 auto 16px;box-shadow:var(--shadow);background:#fff}
-    header h1{margin:0;font-size:28px}
-    header p{margin:8px 0 0;opacity:.95}
-    .container{max-width:1100px;margin:0 auto;padding:18px}
-    .grid{display:grid;grid-template-columns:1.25fr .85fr;gap:18px}
+    header h1{margin:0;font-size:28px} header p{margin:8px 0 0;opacity:.95}
+    .logo-help{display:none;margin-top:10px;font-size:13px;background:rgba(255,255,255,.18);padding:10px 12px;border-radius:12px}
+    body.logo-missing .logo-help{display:inline-block}
+    .container{max-width:1100px;margin:0 auto;padding:18px} .grid{display:grid;grid-template-columns:1.25fr .85fr;gap:18px}
     .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
-    .card h2,.card h3{margin-top:0}
-    .notice{display:flex;gap:10px;flex-wrap:wrap}
-    .badge{background:#e8f5e9;color:var(--green);padding:8px 12px;border-radius:999px;font-size:14px;font-weight:bold}
-    label{display:block;font-weight:bold;margin:10px 0 6px}
-    input,textarea,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:12px;font-size:15px;background:#fff}
-    textarea{min-height:92px;resize:vertical}
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .product{display:grid;grid-template-columns:76px 1fr 90px 120px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-    .product:last-child{border-bottom:none}
-    .product img{width:76px;height:76px;object-fit:cover;border-radius:14px;background:#f3f4f6}
-    .product-name{font-weight:bold;font-size:17px}
-    .product-price{color:var(--green);font-weight:bold;margin-top:4px}
-    .product-meta{color:var(--muted);font-size:13px;margin-top:4px}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    button{border:none;border-radius:14px;padding:14px 16px;font-size:15px;font-weight:bold;cursor:pointer}
-    .btn-whatsapp{background:#25D366;color:#fff}
-    .btn-pay{background:var(--orange);color:#fff}
-    .btn-admin{background:#111827;color:#fff}
-    .btn-soft{background:#e5e7eb;color:#111827}
-    .btn-green{background:var(--green);color:#fff}
-    .small{font-size:13px;color:var(--muted)}
-    .total{font-size:28px;font-weight:bold;text-align:right}
-    .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-    .kpi{background:#f8fafc;border-radius:14px;padding:14px}
-    .kpi .label{font-size:13px;color:var(--muted)}
-    .kpi .value{font-size:24px;font-weight:bold;margin-top:6px}
-    .history-item{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
-    .history-item:last-child{border-bottom:none}
-    .hidden{display:none}
-    .admin-row{display:grid;grid-template-columns:1.4fr .8fr .8fr .8fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
-    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#f3f4f6;font-size:12px}
-    .hero-copy{line-height:1.55}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
-    @media (max-width:640px){
-      .split,.actions,.kpi-grid{grid-template-columns:1fr}
-      .product{grid-template-columns:60px 1fr;gap:10px}
-      .product-controls{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-      .admin-row{grid-template-columns:1fr}
-    }
+    .notice{display:flex;gap:10px;flex-wrap:wrap} .badge{background:#e8f5e9;color:var(--green);padding:8px 12px;border-radius:999px;font-size:14px;font-weight:bold}
+    label{display:block;font-weight:bold;margin:10px 0 6px} input,textarea,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:12px;font-size:15px;background:#fff}
+    textarea{min-height:92px;resize:vertical} .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .toolbar{display:grid;grid-template-columns:1.3fr .7fr;gap:12px;margin-bottom:12px}
+    .product{display:grid;grid-template-columns:76px 1fr 90px 120px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)} .product:last-child{border-bottom:none}
+    .product img{width:76px;height:76px;object-fit:cover;border-radius:14px;background:#f3f4f6} .product-name{font-weight:bold;font-size:17px}
+    .product-price{color:var(--green);font-weight:bold;margin-top:4px} .product-meta{color:var(--muted);font-size:13px;margin-top:4px}
+    .stock-alert{display:inline-block;margin-top:6px;padding:3px 8px;border-radius:999px;font-size:12px;font-weight:bold}
+    .stock-low{background:#fef3c7;color:var(--yellow)} .stock-out{background:#fee2e2;color:var(--red)}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px} button{border:none;border-radius:14px;padding:14px 16px;font-size:15px;font-weight:bold;cursor:pointer}
+    .btn-whatsapp{background:#25D366;color:#fff}.btn-pay{background:var(--orange);color:#fff}.btn-admin{background:#111827;color:#fff}.btn-soft{background:#e5e7eb;color:#111827}.btn-green{background:var(--green);color:#fff}
+    .small{font-size:13px;color:var(--muted)} .total{font-size:28px;font-weight:bold;text-align:right} .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+    .kpi{background:#f8fafc;border-radius:14px;padding:14px}.kpi .label{font-size:13px;color:var(--muted)}.kpi .value{font-size:24px;font-weight:bold;margin-top:6px}
+    .history-item{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.history-item:last-child{border-bottom:none}.hidden{display:none}
+    .admin-row{display:grid;grid-template-columns:1.5fr .8fr .8fr .8fr .8fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#f3f4f6;font-size:12px}.hero-copy{line-height:1.55}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}} @media (max-width:640px){.split,.actions,.kpi-grid,.toolbar{grid-template-columns:1fr}.product{grid-template-columns:60px 1fr;gap:10px}.product-controls{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}.admin-row{grid-template-columns:1fr}}
   </style>
+  <link rel="manifest" href="manifest.json">
 </head>
+
+<!-- 📁 MAPPEN STRUCTUUR -->
+<!--
+Zet dit op GitHub zo:
+
+📁 blessvegs/
+ ├── index.html
+ ├── blessvegs-logo.png   (jouw logo)
+ ├── 📁 images/
+ │     ├── antroewa.jpg
+ │     ├── amsoi.jpg
+ │     ├── bitawieri.jpg
+ │     ├── klaroen.jpg
+ │     └── selderij.jpg
+
+TIP:
+- Gebruik korte namen
+- Geen spaties
+- Alles lowercase
+
+Voor foto's in admin:
+Bij "Foto link" gebruik:
+images/antroewa.jpg
+
+-->
+
 <body>
-  <header>
-    <img class="header-logo" src="blessvegs-logo.png" alt="Bless Vegs logo" />
-    <h1>🌱 Bless Vegs</h1>
-    <p>Puur uit de tuin, met liefde geteeld</p>
-  </header>
-
-  <div class="container">
-    <div class="card">
-      <div style="display:flex;justify-content:center;margin-bottom:14px;">
-        <img src="blessvegs-logo.png" alt="Bless Vegs banner" style="width:100%;max-width:760px;max-height:260px;object-fit:cover;border-radius:18px;box-shadow:var(--shadow);" />
-      </div>
-      <div class="notice">
-        <span class="badge">Minimale bestelling €10</span>
-        <span class="badge">Afhalen gratis</span>
-        <span class="badge">Bezorgen + €3</span>
-        <span class="badge">Biologisch & niet bespoten</span>
-      </div>
-      <p class="hero-copy small" style="margin-top:12px;">
-        Bless Vegs is een klein lokaal initiatief met biologische, onbespoten groenten die met zorg worden geteeld. Klanten kunnen bestellen per kilo, per 100 gram of per stuk, en kiezen voor afhalen of bezorgen.
-      </p>
+<div id="installBar" class="hidden" style="position:sticky;top:0;z-index:50;background:#111827;color:#fff;padding:10px 16px;text-align:center;font-size:14px;">
+  Bless Vegs app installeren op je telefoon?
+  <button id="installBtn" style="margin-left:10px;background:#25D366;color:#fff;border:none;border-radius:10px;padding:8px 12px;cursor:pointer;">Installeer app</button>
+</div>
+<header>
+  <img class="header-logo" src="blessvegs-logo.png" alt="Bless Vegs logo" onerror="this.style.display='none';document.body.classList.add('logo-missing')" />
+  <h1>🌱 Bless Vegs</h1>
+  <p>Puur uit de tuin, met liefde geteeld</p>
+  <div class="logo-help">Logo niet zichtbaar? Upload <b>blessvegs-logo.png</b> in dezelfde GitHub-map als <b>index.html</b>.</div>
+</header>
+<div class="container">
+  <div class="card">
+    <div class="notice">
+      <span class="badge">Minimale bestelling €10</span>
+      <span class="badge">Afhalen gratis</span>
+      <span class="badge">Bezorgen + €3</span>
+      <span class="badge">Biologisch & niet bespoten</span>
     </div>
-
-    <div class="grid">
-      <div>
-        <div class="card">
-          <h2>🧑‍🌾 Klantgegevens</h2>
+    <p class="hero-copy small" style="margin-top:12px;">Bless Vegs is een klein lokaal initiatief met biologische, onbespoten groenten die met zorg worden geteeld. Klanten kunnen bestellen per kilo, per 100 gram of per stuk, en kiezen voor afhalen of bezorgen.</p>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2>🧑‍🌾 Klantgegevens</h2>
+        <div class="split">
+          <div><label for="naam">Naam</label><input id="naam" placeholder="Naam" /></div>
+          <div><label for="telefoon">Telefoon</label><input id="telefoon" placeholder="06..." /></div>
+        </div>
+        <label for="adres">Adres</label><textarea id="adres" placeholder="Adres"></textarea>
+        <label for="levering">Levering</label>
+        <select id="levering"><option value="Afhalen">Afhalen (gratis)</option><option value="Bezorgen">Bezorgen (+€3)</option></select>
+      </div>
+      <div class="card">
+        <h2>🥦 Producten</h2>
+        <div class="toolbar">
+          <input id="zoekProduct" placeholder="Zoek product..." />
+          <select id="filterType"><option value="alles">Alles</option><option value="kg">Per kg</option><option value="stuk">Per stuk</option></select>
+        </div>
+        <div id="producten"></div>
+        <div class="actions"><button class="btn-soft" onclick="kiesPakket('klein')">Klein pakket €10</button><button class="btn-soft" onclick="kiesPakket('groot')">Groot pakket €15</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h2>🧾 Samenvatting</h2>
+        <div id="orderPreview" class="small">Nog geen producten gekozen.</div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:14px 0;" />
+        <div class="total">€ <span id="totaal">0.00</span></div>
+        <div class="small" id="deliveryInfo" style="text-align:right;margin-top:4px;">Afhalen</div>
+        <div class="actions"><button class="btn-whatsapp" onclick="bestelWhatsApp()">Bestel via WhatsApp</button><button class="btn-pay" onclick="betaalIdeal()">Betaal met iDEAL</button></div>
+        <div class="actions"><button class="btn-green" onclick="bestelMetTikkieEnWhatsApp()">Bestel + Tikkie in 1 flow</button></div>
+        <p class="small" style="margin-top:10px;"><b>WhatsApp bestelling:</b> +31 6 85122481</p>
+        <p class="small" style="margin-top:10px;">De iDEAL knop is nu voorbereid op automatische betaling met bedrag via een eigen Mollie backend.</p>
+        <p class="small" style="margin-top:10px;">De app kan nu ook als telefoon-app worden geïnstalleerd.</p>
+      </div>
+      <div class="card hidden" id="adminCard">
+        <h2>🔒 Admin</h2>
+        <button class="btn-admin" onclick="loginAdmin()">Open dashboard</button>
+        <div id="adminPanel" class="hidden" style="margin-top:14px;">
+          <div class="kpi-grid"><div class="kpi"><div class="label">Omzet</div><div class="value" id="kpiOmzet">€0.00</div></div><div class="kpi"><div class="label">Orders</div><div class="value" id="kpiOrders">0</div></div><div class="kpi"><div class="label">Klanten</div><div class="value" id="kpiKlanten">0</div></div><div class="kpi"><div class="label">Lage voorraad</div><div class="value" id="kpiLowStock">0</div></div></div>
           <div class="split">
             <div>
-              <label for="naam">Naam</label>
-              <input id="naam" placeholder="Naam" />
+              <h3>➕ Product toevoegen / aanpassen</h3>
+              <select id="productSelect"></select>
+              <input id="nieuwNaam" placeholder="Naam product" />
+              <input id="nieuwPrijs" placeholder="Prijs" />
+              <input id="nieuwVoorraad" placeholder="Voorraad" />
+              <select id="nieuwVerkoopType"><option value="kg">Verkoop per kg</option><option value="stuk">Verkoop per stuk</option></select>
+              <select id="nieuwVoorraadType"><option value="kg">Voorraad in kg</option><option value="stuk">Voorraad in stuks</option></select>
+              <input id="nieuwFoto" placeholder="Foto link" />
+              <div class="actions"><button class="btn-green" onclick="productOpslaan()">Opslaan</button><button class="btn-soft" onclick="nieuwProductForm()">Nieuw product</button></div>
             </div>
             <div>
-              <label for="telefoon">Telefoon</label>
-              <input id="telefoon" placeholder="06..." />
+              <h3>📦 Productbeheer</h3>
+              <div id="adminlijst"></div>
             </div>
           </div>
-          <label for="adres">Adres</label>
-          <textarea id="adres" placeholder="Adres"></textarea>
-          <label for="levering">Levering</label>
-          <select id="levering">
-            <option value="Afhalen">Afhalen (gratis)</option>
-            <option value="Bezorgen">Bezorgen (+€3)</option>
-          </select>
-        </div>
-
-        <div class="card">
-          <h2>🥦 Producten</h2>
-          <div id="producten"></div>
-          <div class="actions">
-            <button class="btn-soft" onclick="kiesPakket('klein')">Klein pakket €10</button>
-            <button class="btn-soft" onclick="kiesPakket('groot')">Groot pakket €15</button>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="card">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-            <img src="blessvegs-logo.png" alt="Bless Vegs klein logo" style="width:64px;height:64px;object-fit:cover;border-radius:50%;box-shadow:var(--shadow);" />
-            <div>
-              <h2 style="margin:0;">🧾 Samenvatting</h2>
-              <div class="small">Herkenbaar logo van Bless Vegs</div>
-            </div>
-          </div>
-          <div id="orderPreview" class="small">Nog geen producten gekozen.</div>
-          <hr style="border:none;border-top:1px solid var(--line);margin:14px 0;" />
-          <div class="total">€ <span id="totaal">0.00</span></div>
-          <div class="small" id="deliveryInfo" style="text-align:right;margin-top:4px;">Afhalen</div>
-          <div class="actions">
-            <button class="btn-whatsapp" onclick="bestelWhatsApp()">Bestel via WhatsApp</button>
-            <button class="btn-pay" onclick="betaalIdeal()">Betaal met iDEAL</button>
-          </div>
-          <p class="small" style="margin-top:10px;">
-            Voor echte iDEAL-betalingen moet je je eigen Mollie- of Stripe-checkoutlink invullen.
-          </p>
-        </div>
-
-        <div class="card">
-          <h2>🔒 Admin</h2>
-          <button class="btn-admin" onclick="loginAdmin()">Open dashboard</button>
-          <div id="adminPanel" class="hidden" style="margin-top:14px;">
-            <div class="kpi-grid">
-              <div class="kpi"><div class="label">Omzet</div><div class="value" id="kpiOmzet">€0.00</div></div>
-              <div class="kpi"><div class="label">Orders</div><div class="value" id="kpiOrders">0</div></div>
-              <div class="kpi"><div class="label">Klanten</div><div class="value" id="kpiKlanten">0</div></div>
-            </div>
-
-            <div class="split">
-              <div>
-                <h3>➕ Product toevoegen</h3>
-                <input id="nieuwNaam" placeholder="Naam product" />
-                <input id="nieuwPrijs" placeholder="Prijs per kg" />
-                <input id="nieuwVoorraad" placeholder="Voorraad" />
-                <select id="nieuwVoorraadType">
-                  <option value="kg">Voorraad in kg</option>
-                  <option value="stuk">Voorraad in stuks</option>
-                </select>
-                <input id="nieuwFoto" placeholder="Foto link" />
-                <button class="btn-green" onclick="productToevoegen()">Opslaan</button>
-              </div>
-              <div>
-                <h3>📦 Productbeheer</h3>
-                <div id="adminlijst"></div>
-              </div>
-            </div>
-
-            <h3 style="margin-top:18px;">🕘 Laatste bestellingen</h3>
-            <div id="history"></div>
-            <div class="actions">
-              <button class="btn-soft" onclick="resetData()">Reset dashboarddata</button>
-              <button class="btn-soft" onclick="logoutAdmin()">Sluit dashboard</button>
-            </div>
-          </div>
+          <h3 style="margin-top:18px;">🕘 Laatste bestellingen</h3>
+          <div id="history"></div>
+          <div class="actions"><button class="btn-soft" onclick="exportOrdersCSV()">Exporteer orders CSV</button><button class="btn-soft" onclick="resetData()">Reset dashboarddata</button></div>
+          <div class="actions"><button class="btn-soft" onclick="logoutAdmin()">Sluit dashboard</button></div>
         </div>
       </div>
     </div>
   </div>
+  </div>
+  <div class="card">
+    <h2>📌 Bestellen & betalen</h2>
+    <p class="small">1. Kies je producten en hoeveelheid.</p>
+    <p class="small">2. Kies afhalen of bezorgen.</p>
+    <p class="small">3. Verstuur je bestelling via WhatsApp.</p>
+    <p class="small">4. Verstuur direct je bestelling en open daarna meteen Tikkie.</p>
+    <p class="small"><b>Contact:</b> +31 6 85122481</p>
+  </div>
+</div>
+<script>
+const whatsappNummer='31685122481';
+const idealBetaalLink='https://www.mollie.com/payments/ideal';
+const paymentApiUrl=''; // zet hier later je eigen backend endpoint neer, bv. https://jouwdomein.nl/api/create-payment
+const tikkieLink='https://tikkie.me/pay/voorbeeld';
+const deliveryFee=3;
+const minBestelling=10;
+const adminPassword='bless123';
+let logoTapCount=0;
+let logoTapTimer=null;
+let editIndex=-1;
+let producten=JSON.parse(localStorage.getItem('blessvegs_producten')||'null')||[
+{id:'antroewa',name:'Antroewa',prijs:4.00,voorraad:20,verkoopType:'kg',voorraadType:'kg',foto:'https://upload.wikimedia.org/wikipedia/commons/6/6f/Garden_egg.jpg'},
+{id:'amsoi',name:'Amsoi',prijs:3.00,voorraad:15,verkoopType:'kg',voorraadType:'kg',foto:'https://upload.wikimedia.org/wikipedia/commons/2/2d/Choy_sum.jpg'},
+{id:'bitawieri',name:'Bitawieri',prijs:3.50,voorraad:15,verkoopType:'kg',voorraadType:'kg',foto:'https://upload.wikimedia.org/wikipedia/commons/3/37/Amaranthus_leaves.jpg'},
+{id:'klaroen',name:'Klaroen',prijs:3.50,voorraad:12,verkoopType:'kg',voorraadType:'kg',foto:'https://upload.wikimedia.org/wikipedia/commons/3/37/Amaranthus_leaves.jpg'},
+{id:'selderij',name:'Surinaamse selderij',prijs:2.50,voorraad:30,verkoopType:'stuk',voorraadType:'stuk',foto:'https://upload.wikimedia.org/wikipedia/commons/3/3e/Celery.jpg'}
+];
+let stats=JSON.parse(localStorage.getItem('blessvegs_stats')||'null')||{omzet:0,orders:0,klanten:[],history:[]};
+let actieveProducten=[];
+function saveAll(){localStorage.setItem('blessvegs_producten',JSON.stringify(producten));localStorage.setItem('blessvegs_stats',JSON.stringify(stats));}
+function formatEuro(v){return Number(v).toFixed(2);}
+function allowedUnits(p){return p.verkoopType==='kg' ? ['kg','100g'] : ['stuk'];}
+function voorraadBadge(p){
+  if(Number(p.voorraad) <= 0) return '<div class="stock-alert stock-out">Uitverkocht</div>';
+  if(Number(p.voorraad) <= 3) return '<div class="stock-alert stock-low">Bijna op</div>';
+  return '';
+}
+function getFilteredProducten(){
+  const zoek=(document.getElementById('zoekProduct')?.value||'').toLowerCase().trim();
+  const filter=document.getElementById('filterType')?.value||'alles';
+  return producten.filter(p=>{
+    const matchZoek=!zoek || p.name.toLowerCase().includes(zoek);
+    const matchType=filter==='alles' || p.verkoopType===filter;
+    return matchZoek && matchType;
+  });
+}
+function renderProducten(){
+  const wrap=document.getElementById('producten');
+  actieveProducten=getFilteredProducten();
+  wrap.innerHTML=actieveProducten.map((p,i)=>`<div class="product"><img src="${p.foto||''}" alt="${p.name}" onerror="this.style.visibility='hidden'" /><div><div class="product-name">${p.name}</div><div class="product-price">€${formatEuro(p.prijs)} per ${p.verkoopType}</div><div class="product-meta">Beschikbaar: ${p.voorraad} ${p.voorraadType==='stuk'?'stuks':'kg'}</div>${voorraadBadge(p)}</div><div class="product-controls"><input id="qty_${i}" type="number" min="0" value="0" step="1" ${Number(p.voorraad)<=0?'disabled':''} /></div><div class="product-controls"><select id="unit_${i}" ${Number(p.voorraad)<=0?'disabled':''}>${allowedUnits(p).map(u=>`<option value="${u}">${u}</option>`).join('')}</select></div></div>`).join('') || '<div class="small">Geen producten gevonden.</div>';
+  renderAdminLijst(); renderSelect(); updateAlles();
+}
+function renderSelect(){
+  const el=document.getElementById('productSelect'); if(!el) return;
+  el.innerHTML='<option value="-1">Nieuw product</option>'+producten.map((p,i)=>`<option value="${i}">${p.name}</option>`).join('');
+  el.value=String(editIndex);
+}
+function renderAdminLijst(){
+  const el=document.getElementById('adminlijst'); if(!el) return;
+  el.innerHTML=producten.map((p,i)=>`<div class="admin-row"><div><b>${p.name}</b><br><span class="small">${p.voorraad} ${p.voorraadType} • verkoop per ${p.verkoopType}</span></div><div>€${formatEuro(p.prijs)}</div><div><span class="pill">${p.verkoopType}</span></div><div><button class="btn-soft" onclick="laadProduct(${i})">Bewerk</button></div><div><button class="btn-soft" onclick="verwijderProduct(${i})">Verwijder</button></div></div>`).join('');
+}
+function berekenRegelTotaal(product,qty,unit){const q=Number(qty)||0; if(product.verkoopType==='kg'){if(unit==='kg') return q*product.prijs; if(unit==='100g') return q*(product.prijs/10);} if(product.verkoopType==='stuk'&&unit==='stuk') return q*product.prijs; return 0;}
+function getOrderData(){const items=[]; let subtotal=0; actieveProducten.forEach((p,i)=>{const qty=Number(document.getElementById(`qty_${i}`)?.value||0); const unit=document.getElementById(`unit_${i}`)?.value||allowedUnits(p)[0]; if(qty>0){const lineTotal=berekenRegelTotaal(p,qty,unit); items.push({name:p.name,qty,unit,lineTotal,id:p.id}); subtotal+=lineTotal;}}); const levering=document.getElementById('levering').value; const delivery=levering==='Bezorgen'?deliveryFee:0; return {items,subtotal,delivery,totaal:subtotal+delivery,levering};}
+function updatePreview(order){const preview=document.getElementById('orderPreview'); const totaalEl=document.getElementById('totaal'); const deliveryInfo=document.getElementById('deliveryInfo'); deliveryInfo.textContent=order.levering==='Bezorgen'?`Bezorgen + €${deliveryFee}`:'Afhalen'; if(order.items.length===0){preview.innerHTML='Nog geen producten gekozen.';} else {preview.innerHTML=order.items.map(i=>`${i.name} – ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}`).join('<br>'); if(order.delivery>0) preview.innerHTML+=`<br>Bezorgen = €${formatEuro(order.delivery)}`;} totaalEl.textContent=formatEuro(order.totaal);}
+function updateDashboard(){document.getElementById('kpiOmzet').textContent=`€${formatEuro(stats.omzet)}`; document.getElementById('kpiOrders').textContent=stats.orders; document.getElementById('kpiKlanten').textContent=[...new Set(stats.klanten)].length; document.getElementById('kpiLowStock').textContent=producten.filter(p=>Number(p.voorraad)<=3).length; const h=document.getElementById('history'); h.innerHTML=stats.history.slice(-8).reverse().map(x=>`<div class="history-item"><b>${x.naam||'Onbekend'}</b> – €${formatEuro(x.totaal)}<br><span class="small">${x.moment} • ${x.levering}</span><br><span class="small">${x.items.join(', ')}</span></div>`).join('')||'<div class="small">Nog geen bestellingen.</div>';}
+function updateAlles(){updatePreview(getOrderData()); updateDashboard();}
+function kiesPakket(type){resetInputs(); if(type==='klein'){setQty('antroewa',1,'kg'); setQty('amsoi',1,'kg');} else {setQty('antroewa',1,'kg'); setQty('amsoi',1,'kg'); setQty('bitawieri',1,'kg'); setQty('selderij',2,'stuk');} updateAlles();}
+function setQty(productId,qty,unit){const idx=actieveProducten.findIndex(p=>p.id===productId); if(idx>=0){document.getElementById(`qty_${idx}`).value=qty; document.getElementById(`unit_${idx}`).value=unit;}}
+function resetInputs(){actieveProducten.forEach((p,i)=>{if(document.getElementById(`qty_${i}`)){document.getElementById(`qty_${i}`).value=0; document.getElementById(`unit_${i}`).value=allowedUnits(p)[0];}});}
+function bouwWhatsAppBericht(order){const naam=document.getElementById('naam').value.trim(); const telefoon=document.getElementById('telefoon').value.trim(); const adres=document.getElementById('adres').value.trim(); let msg='Nieuwe bestelling Bless Vegs\n'; msg+=`Naam: ${naam||'-'}\n`; msg+=`Telefoon: ${telefoon||'-'}\n`; msg+=`Adres: ${adres||'-'}\n`; msg+=`Levering: ${order.levering}${order.delivery?' (+€3)':''}\n\n`; order.items.forEach(i=>{msg+=`${i.name}: ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}\n`;}); if(order.delivery) msg+=`Bezorgen: €${formatEuro(order.delivery)}\n`; msg+=`\nTotaal: €${formatEuro(order.totaal)}`; return encodeURIComponent(msg);}
+function verwerkBestelling(order){const naam=document.getElementById('naam').value.trim()||'Onbekend'; stats.omzet+=order.totaal; stats.orders+=1; stats.klanten.push(naam); stats.history.push({naam,totaal:order.totaal,levering:order.levering,moment:new Date().toLocaleString(),items:order.items.map(i=>`${i.name} ${i.qty}${i.unit}`)}); order.items.forEach(item=>{const p=producten.find(x=>x.id===item.id); if(!p) return; if(item.unit==='kg') p.voorraad=Math.max(0,Number((p.voorraad-item.qty).toFixed(2))); if(item.unit==='100g') p.voorraad=Math.max(0,Number((p.voorraad-(item.qty/10)).toFixed(2))); if(item.unit==='stuk') p.voorraad=Math.max(0,p.voorraad-item.qty);}); saveAll(); renderProducten(); updateDashboard();}
+function bestelWhatsApp(){const order=getOrderData(); if(order.items.length===0){alert('Kies eerst een product.'); return;} if(order.totaal<minBestelling){alert(`Minimum bestelling is €${minBestelling}.`); return;} const url=`https://wa.me/${whatsappNummer}?text=${bouwWhatsAppBericht(order)}`; verwerkBestelling(order); window.open(url,'_blank');}
+async function betaalIdeal(){const order=getOrderData(); if(order.items.length===0){alert('Kies eerst een product.'); return;} if(order.totaal<minBestelling){alert(`Minimum bestelling is €${minBestelling}.`); return;} if(!paymentApiUrl){alert('Automatische iDEAL betaling met bedrag staat klaar in de app, maar heeft nog een backend endpoint nodig. Vul paymentApiUrl in met je eigen Mollie backend.'); window.open(`${idealBetaalLink}`,'_blank'); return;} try{const response=await fetch(paymentApiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:order.totaal,name:document.getElementById('naam').value.trim(),phone:document.getElementById('telefoon').value.trim(),address:document.getElementById('adres').value.trim(),delivery:order.levering,items:order.items})}); const data=await response.json(); if(data && data.checkoutUrl){window.open(data.checkoutUrl,'_blank');} else {alert('Geen geldige betaallink ontvangen van de server.');}}catch(err){alert('Automatische betaling kon niet starten. Controleer je backend koppeling.');}}
+function betaalTikkie(){const order=getOrderData(); if(order.items.length===0){alert('Kies eerst een product.'); return;} if(order.totaal<minBestelling){alert(`Minimum bestelling is €${minBestelling}.`); return;} alert('Tikkie opent. Zorg dat je eigen Tikkie link is ingevuld.'); window.open(`${tikkieLink}`,'_blank');}
+function bestelMetTikkieEnWhatsApp(){const order=getOrderData(); if(order.items.length===0){alert('Kies eerst een product.'); return;} if(order.totaal<minBestelling){alert(`Minimum bestelling is €${minBestelling}.`); return;} const basisBericht=decodeURIComponent(bouwWhatsAppBericht(order)); const extra=`
 
-  <script>
-    const whatsappNummer = '31685122481';
-    const idealBetaalLink = 'https://www.mollie.com/payments/ideal';
-    const deliveryFee = 3;
-    const minBestelling = 10;
-    const adminPassword = 'bless123';
+Betaallink Tikkie: ${tikkieLink}
+Graag betalen na het versturen van de bestelling.`; const whatsappUrl=`https://wa.me/${whatsappNummer}?text=${encodeURIComponent(basisBericht+extra)}`; verwerkBestelling(order); window.open(whatsappUrl,'_blank'); setTimeout(()=>{window.open(`${tikkieLink}`,'_blank');},700);}
+function loginAdmin(){const p=prompt('Voer admin wachtwoord in:'); if(p===adminPassword){document.getElementById('adminCard').classList.remove('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); updateDashboard();} else if(p!==null){alert('Geen toegang.');}}
+function logoutAdmin(){document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('adminCard').classList.add('hidden');}
+function laadProduct(index){editIndex=index; const p=producten[index]; document.getElementById('productSelect').value=String(index); document.getElementById('nieuwNaam').value=p.name; document.getElementById('nieuwPrijs').value=p.prijs; document.getElementById('nieuwVoorraad').value=p.voorraad; document.getElementById('nieuwVerkoopType').value=p.verkoopType; document.getElementById('nieuwVoorraadType').value=p.voorraadType; document.getElementById('nieuwFoto').value=p.foto||'';}
+function nieuwProductForm(){editIndex=-1; document.getElementById('productSelect').value='-1'; document.getElementById('nieuwNaam').value=''; document.getElementById('nieuwPrijs').value=''; document.getElementById('nieuwVoorraad').value=''; document.getElementById('nieuwVerkoopType').value='kg'; document.getElementById('nieuwVoorraadType').value='kg'; document.getElementById('nieuwFoto').value='';}
+function productOpslaan(){const name=document.getElementById('nieuwNaam').value.trim(); const prijs=Number(document.getElementById('nieuwPrijs').value); const voorraad=Number(document.getElementById('nieuwVoorraad').value); const verkoopType=document.getElementById('nieuwVerkoopType').value; const voorraadType=document.getElementById('nieuwVoorraadType').value; const foto=document.getElementById('nieuwFoto').value.trim(); if(!name||!prijs||voorraad<0){alert('Vul naam, prijs en voorraad goed in.'); return;} const id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-'); const data={id,name,prijs,voorraad,verkoopType,voorraadType,foto}; if(editIndex>=0){producten[editIndex]=data;} else {producten.push(data);} saveAll(); renderProducten(); nieuwProductForm();}
+function verwijderProduct(index){if(!confirm('Product verwijderen?')) return; producten.splice(index,1); saveAll(); renderProducten(); nieuwProductForm();}
+function resetData(){if(!confirm('Dashboarddata resetten? Producten blijven bestaan.')) return; stats={omzet:0,orders:0,klanten:[],history:[]}; saveAll(); updateDashboard();}
+function exportOrdersCSV(){if(!stats.history.length){alert('Nog geen bestellingen om te exporteren.'); return;} const rows=[['moment','naam','levering','totaal','items']]; stats.history.forEach(o=>rows.push([o.moment,o.naam,o.levering,o.totaal,o.items.join(' | ')])); const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('
+'); const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='blessvegs-orders.csv'; a.click(); URL.revokeObjectURL(url);}
+document.addEventListener('input',e=>{if(['naam','telefoon','adres','zoekProduct'].includes(e.target.id)||String(e.target.id).startsWith('qty_')){if(e.target.id==='zoekProduct') renderProducten(); else updateAlles();}});
+document.addEventListener('change',e=>{if(e.target.id==='levering'||String(e.target.id).startsWith('unit_')) updateAlles(); if(e.target.id==='productSelect'){const idx=Number(e.target.value); if(idx>=0) laadProduct(idx); else nieuwProductForm();} if(e.target.id==='filterType') renderProducten();});
+function secretAdminTrigger(){
+  logoTapCount++;
+  clearTimeout(logoTapTimer);
+  logoTapTimer=setTimeout(()=>{logoTapCount=0;},1500);
+  if(logoTapCount>=5){
+    logoTapCount=0;
+    loginAdmin();
+  }
+}
 
-    let producten = JSON.parse(localStorage.getItem('blessvegs_producten') || 'null') || [
-      {id:'antroewa', name:'Antroewa', prijs:4.00, voorraad:20, voorraadType:'kg', foto:'https://upload.wikimedia.org/wikipedia/commons/6/6f/Garden_egg.jpg'},
-      {id:'amsoi', name:'Amsoi', prijs:3.00, voorraad:15, voorraadType:'kg', foto:'https://upload.wikimedia.org/wikipedia/commons/2/2d/Choy_sum.jpg'},
-      {id:'bitawieri', name:'Bitawieri', prijs:3.50, voorraad:15, voorraadType:'kg', foto:'https://upload.wikimedia.org/wikipedia/commons/3/37/Amaranthus_leaves.jpg'},
-      {id:'klaroen', name:'Klaroen', prijs:3.50, voorraad:12, voorraadType:'kg', foto:'https://upload.wikimedia.org/wikipedia/commons/3/37/Amaranthus_leaves.jpg'},
-      {id:'selderij', name:'Surinaamse selderij', prijs:2.50, voorraad:30, voorraadType:'stuk', foto:'https://upload.wikimedia.org/wikipedia/commons/3/3e/Celery.jpg'}
-    ];
+// 🔑 geheime link: #owner
+function checkSecretLink(){
+  if(window.location.hash === '#owner'){
+    loginAdmin();
+  }
+}
 
-    let stats = JSON.parse(localStorage.getItem('blessvegs_stats') || 'null') || {
-      omzet:0,
-      orders:0,
-      klanten:[],
-      history:[]
-    };
+document.querySelector('.header-logo').addEventListener('click', secretAdminTrigger);
+document.querySelector('header h1').addEventListener('click', secretAdminTrigger);
 
-    function saveAll(){
-      localStorage.setItem('blessvegs_producten', JSON.stringify(producten));
-      localStorage.setItem('blessvegs_stats', JSON.stringify(stats));
-    }
-
-    function formatEuro(v){
-      return Number(v).toFixed(2);
-    }
-
-    function renderProducten(){
-      const wrap = document.getElementById('producten');
-      wrap.innerHTML = producten.map((p,i)=>`
-        <div class="product">
-          <img src="${p.foto || ''}" alt="${p.name}" onerror="this.style.visibility='hidden'" />
-          <div>
-            <div class="product-name">${p.name}</div>
-            <div class="product-price">€${formatEuro(p.prijs)} per kg</div>
-            <div class="product-meta">Beschikbaar: ${p.voorraad} ${p.voorraadType === 'stuk' ? 'stuks' : 'kg'}</div>
-          </div>
-          <div class="product-controls">
-            <input id="qty_${i}" type="number" min="0" value="0" step="1" />
-          </div>
-          <div class="product-controls">
-            <select id="unit_${i}">
-              <option value="kg">kg</option>
-              <option value="100g">100g</option>
-              <option value="stuk">stuk</option>
-            </select>
-          </div>
-        </div>
-      `).join('');
-      renderAdminLijst();
-      updateAlles();
-    }
-
-    function renderAdminLijst(){
-      const el = document.getElementById('adminlijst');
-      if(!el) return;
-      el.innerHTML = producten.map((p,i)=>`
-        <div class="admin-row">
-          <div><b>${p.name}</b><br><span class="small">${p.voorraad} ${p.voorraadType}</span></div>
-          <div>€${formatEuro(p.prijs)}</div>
-          <div><span class="pill">${p.voorraadType}</span></div>
-          <div><button class="btn-soft" onclick="verwijderProduct(${i})">Verwijder</button></div>
-        </div>
-      `).join('');
-    }
-
-    function berekenRegelTotaal(product, qty, unit){
-      const q = Number(qty) || 0;
-      if(unit === 'kg') return q * product.prijs;
-      if(unit === '100g') return q * (product.prijs / 10);
-      if(unit === 'stuk') return q * product.prijs;
-      return 0;
-    }
-
-    function getOrderData(){
-      const items = [];
-      let subtotal = 0;
-      producten.forEach((p,i)=>{
-        const qty = Number(document.getElementById(`qty_${i}`)?.value || 0);
-        const unit = document.getElementById(`unit_${i}`)?.value || 'kg';
-        if(qty > 0){
-          const lineTotal = berekenRegelTotaal(p, qty, unit);
-          items.push({name:p.name, qty, unit, lineTotal, id:p.id});
-          subtotal += lineTotal;
-        }
-      });
-      const levering = document.getElementById('levering').value;
-      const delivery = levering === 'Bezorgen' ? deliveryFee : 0;
-      return {items, subtotal, delivery, totaal: subtotal + delivery, levering};
-    }
-
-    function updatePreview(order){
-      const preview = document.getElementById('orderPreview');
-      const totaalEl = document.getElementById('totaal');
-      const deliveryInfo = document.getElementById('deliveryInfo');
-      deliveryInfo.textContent = order.levering === 'Bezorgen' ? `Bezorgen + €${deliveryFee}` : 'Afhalen';
-
-      if(order.items.length === 0){
-        preview.innerHTML = 'Nog geen producten gekozen.';
-      } else {
-        preview.innerHTML = order.items.map(i => `${i.name} – ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}`).join('<br>');
-        if(order.delivery > 0){
-          preview.innerHTML += `<br>Bezorgen = €${formatEuro(order.delivery)}`;
-        }
-      }
-      totaalEl.textContent = formatEuro(order.totaal);
-    }
-
-    function updateDashboard(){
-      document.getElementById('kpiOmzet').textContent = `€${formatEuro(stats.omzet)}`;
-      document.getElementById('kpiOrders').textContent = stats.orders;
-      document.getElementById('kpiKlanten').textContent = [...new Set(stats.klanten)].length;
-      const historyEl = document.getElementById('history');
-      historyEl.innerHTML = stats.history.slice(-8).reverse().map(h => `
-        <div class="history-item">
-          <b>${h.naam || 'Onbekend'}</b> – €${formatEuro(h.totaal)}<br>
-          <span class="small">${h.moment} • ${h.levering}</span><br>
-          <span class="small">${h.items.join(', ')}</span>
-        </div>
-      `).join('') || '<div class="small">Nog geen bestellingen.</div>';
-    }
-
-    function updateAlles(){
-      updatePreview(getOrderData());
-      updateDashboard();
-    }
-
-    function kiesPakket(type){
-      resetInputs();
-      if(type === 'klein'){
-        setQty('antroewa', 1, 'kg');
-        setQty('amsoi', 1, 'kg');
-      } else {
-        setQty('antroewa', 1, 'kg');
-        setQty('amsoi', 1, 'kg');
-        setQty('bitawieri', 1, 'kg');
-        setQty('selderij', 2, 'stuk');
-      }
-      updateAlles();
-    }
-
-    function setQty(productId, qty, unit){
-      const idx = producten.findIndex(p => p.id === productId);
-      if(idx >= 0){
-        document.getElementById(`qty_${idx}`).value = qty;
-        document.getElementById(`unit_${idx}`).value = unit;
-      }
-    }
-
-    function resetInputs(){
-      producten.forEach((p,i)=>{
-        document.getElementById(`qty_${i}`).value = 0;
-        document.getElementById(`unit_${i}`).value = 'kg';
-      });
-    }
-
-    function bouwWhatsAppBericht(order){
-      const naam = document.getElementById('naam').value.trim();
-      const telefoon = document.getElementById('telefoon').value.trim();
-      const adres = document.getElementById('adres').value.trim();
-      let msg = 'Nieuwe bestelling Bless Vegs\n';
-      msg += `Naam: ${naam || '-'}\n`;
-      msg += `Telefoon: ${telefoon || '-'}\n`;
-      msg += `Adres: ${adres || '-'}\n`;
-      msg += `Levering: ${order.levering}${order.delivery ? ' (+€3)' : ''}\n\n`;
-      order.items.forEach(i => {
-        msg += `${i.name}: ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}\n`;
-      });
-      if(order.delivery){
-        msg += `Bezorgen: €${formatEuro(order.delivery)}\n`;
-      }
-      msg += `\nTotaal: €${formatEuro(order.totaal)}`;
-      return encodeURIComponent(msg);
-    }
-
-    function verwerkBestelling(order){
-      const naam = document.getElementById('naam').value.trim() || 'Onbekend';
-      stats.omzet += order.totaal;
-      stats.orders += 1;
-      stats.klanten.push(naam);
-      stats.history.push({
-        naam,
-        totaal: order.totaal,
-        levering: order.levering,
-        moment: new Date().toLocaleString(),
-        items: order.items.map(i => `${i.name} ${i.qty}${i.unit}`)
-      });
-
-      order.items.forEach(item => {
-        const p = producten.find(x => x.id === item.id);
-        if(!p) return;
-        if(item.unit === 'kg') p.voorraad = Math.max(0, Number((p.voorraad - item.qty).toFixed(2)));
-        if(item.unit === '100g') p.voorraad = Math.max(0, Number((p.voorraad - (item.qty / 10)).toFixed(2)));
-        if(item.unit === 'stuk') p.voorraad = Math.max(0, p.voorraad - item.qty);
-      });
-
-      saveAll();
-      renderProducten();
-      updateDashboard();
-    }
-
-    function bestelWhatsApp(){
-      const order = getOrderData();
-      if(order.items.length === 0){
-        alert('Kies eerst een product.');
-        return;
-      }
-      if(order.totaal < minBestelling){
-        alert(`Minimum bestelling is €${minBestelling}.`);
-        return;
-      }
-      const url = `https://wa.me/${whatsappNummer}?text=${bouwWhatsAppBericht(order)}`;
-      verwerkBestelling(order);
-      window.open(url, '_blank');
-    }
-
-    function betaalIdeal(){
-      const order = getOrderData();
-      if(order.items.length === 0){
-        alert('Kies eerst een product.');
-        return;
-      }
-      if(order.totaal < minBestelling){
-        alert(`Minimum bestelling is €${minBestelling}.`);
-        return;
-      }
-      alert('Voor echte iDEAL-betalingen moet je hier je eigen Mollie- of Stripe-checkoutlink koppelen.');
-      window.open(`${idealBetaalLink}`, '_blank');
-    }
-
-    function loginAdmin(){
-      const p = prompt('Voer admin wachtwoord in:');
-      if(p === adminPassword){
-        document.getElementById('adminPanel').classList.remove('hidden');
-        updateDashboard();
-      } else if (p !== null) {
-        alert('Geen toegang.');
-      }
-    }
-
-    function logoutAdmin(){
-      document.getElementById('adminPanel').classList.add('hidden');
-    }
-
-    function productToevoegen(){
-      const name = document.getElementById('nieuwNaam').value.trim();
-      const prijs = Number(document.getElementById('nieuwPrijs').value);
-      const voorraad = Number(document.getElementById('nieuwVoorraad').value);
-      const voorraadType = document.getElementById('nieuwVoorraadType').value;
-      const foto = document.getElementById('nieuwFoto').value.trim();
-      if(!name || !prijs || voorraad < 0){
-        alert('Vul naam, prijs en voorraad goed in.');
-        return;
-      }
-      const id = name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-      producten.push({id,name,prijs,voorraad,voorraadType,foto});
-      saveAll();
-      renderProducten();
-      document.getElementById('nieuwNaam').value='';
-      document.getElementById('nieuwPrijs').value='';
-      document.getElementById('nieuwVoorraad').value='';
-      document.getElementById('nieuwFoto').value='';
-    }
-
-    function verwijderProduct(index){
-      if(!confirm('Product verwijderen?')) return;
-      producten.splice(index,1);
-      saveAll();
-      renderProducten();
-    }
-
-    function resetData(){
-      if(!confirm('Dashboarddata resetten? Producten blijven bestaan.')) return;
-      stats = {omzet:0, orders:0, klanten:[], history:[]};
-      saveAll();
-      updateDashboard();
-    }
-
-    document.addEventListener('input', e => {
-      if(['naam','telefoon','adres'].includes(e.target.id) || String(e.target.id).startsWith('qty_')) updateAlles();
+checkSecretLink();
+renderProducten(); nieuwProductForm(); updateAlles();
+</script>
+<script>
+// 📱 PWA install prompt
+let deferredPrompt;
+const installBar=document.getElementById('installBar');
+const installBtn=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBar.classList.remove('hidden');
+});
+installBtn?.addEventListener('click', async () => {
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installBar.classList.add('hidden');
+});
+window.addEventListener('appinstalled', () => {
+  installBar.classList.add('hidden');
+});
+if('serviceWorker' in navigator){
+  const swCode = `
+    const CACHE='blessvegs-cache-v1';
+    const ASSETS=['./','./index.html','./manifest.json','./blessvegs-logo.png'];
+    self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
+    self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim());});
+    self.addEventListener('fetch',e=>{
+      if(e.request.method!=='GET') return;
+      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const copy=res.clone(); caches.open(CACHE).then(c=>c.put(e.request,copy)); return res;}).catch(()=>caches.match('./index.html'))));
     });
-    document.addEventListener('change', e => {
-      if(e.target.id === 'levering' || String(e.target.id).startsWith('unit_')) updateAlles();
-    });
-
-    renderProducten();
-    updateAlles();
-  </script>
+  `;
+  const blob = new Blob([swCode], { type: 'text/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+</script>
 </body>
 </html>
