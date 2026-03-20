@@ -53,6 +53,32 @@
 </style>
   <link rel="manifest" href="manifest.json">
 </head>
+
+<!-- 📁 MAPPEN STRUCTUUR -->
+<!--
+Zet dit op GitHub zo:
+
+📁 blessvegs/
+ ├── index.html
+ ├── blessvegs-logo.png   (jouw logo)
+ ├── 📁 images/
+ │     ├── antroewa.jpg
+ │     ├── amsoi.jpg
+ │     ├── bitawieri.jpg
+ │     ├── klaroen.jpg
+ │     └── selderij.jpg
+
+TIP:
+- Gebruik korte namen
+- Geen spaties
+- Alles lowercase
+
+Voor foto's in admin:
+Bij "Foto link" gebruik:
+images/antroewa.jpg
+
+-->
+
 <body>
 <div id="splash" class="splash">
   <img src="blessvegs-logo.png" alt="Bless Vegs">
@@ -74,7 +100,7 @@
     <div class="notice">
       <span class="badge">Minimale bestelling €10</span>
       <span class="badge">Afhalen gratis</span>
-      <span class="badge">Bezorgen + €3</span>
+      <span class="badge">Bezorgen vanaf €5</span>
       <span class="badge">Biologisch & niet bespoten</span>
     </div>
     <p class="hero-copy small" style="margin-top:12px;">Bless Vegs is een klein lokaal initiatief met biologische, onbespoten groenten die met zorg worden geteeld. Klanten kunnen bestellen per kilo, per 100 gram of per stuk, en kiezen voor afhalen of bezorgen.</p>
@@ -89,7 +115,7 @@
         </div>
         <label for="adres">Adres</label><textarea id="adres" placeholder="Adres"></textarea>
         <label for="levering">Levering</label>
-        <select id="levering"><option value="Afhalen">Afhalen (gratis)</option><option value="Bezorgen">Bezorgen (+€3)</option></select>
+        <select id="levering"><option value="Afhalen">Afhalen (gratis)</option><option value="Bezorgen">Bezorgen (vanaf €5)</option></select>
       </div>
       <div class="card">
         <h2>🥦 Producten</h2>
@@ -146,7 +172,7 @@
   <div class="card">
     <h2>📌 Bestellen & betalen</h2>
     <p class="small">1. Kies je producten en hoeveelheid.</p>
-    <p class="small">2. Kies afhalen of bezorgen.</p>
+    <p class="small">2. Kies afhalen of bezorgen (bezorgen vanaf €5).</p>
     <p class="small">3. Verstuur je bestelling via WhatsApp.</p>
     <p class="small">4. Verstuur direct je bestelling en open daarna meteen Tikkie.</p>
     <p class="small"><b>Contact:</b> +31 6 85122481</p>
@@ -164,7 +190,7 @@ const appLink=window.location.origin + window.location.pathname;
 const idealBetaalLink='https://www.mollie.com/payments/ideal';
 const paymentApiUrl=''; // zet hier later je eigen backend endpoint neer, bv. https://jouwdomein.nl/api/create-payment
 const tikkieLink='https://tikkie.me/pay/voorbeeld';
-const deliveryFee=3;
+const deliveryFee=5;
 const minBestelling=10;
 const adminPassword='bless123';
 let logoTapCount=0;
@@ -216,13 +242,13 @@ function renderAdminLijst(){
 }
 function berekenRegelTotaal(product,qty,unit){const q=Number(qty)||0; if(product.verkoopType==='kg'){if(unit==='kg') return q*product.prijs; if(unit==='100g') return q*(product.prijs/10);} if(product.verkoopType==='stuk'&&unit==='stuk') return q*product.prijs; return 0;}
 function getOrderData(){const items=[]; let subtotal=0; actieveProducten.forEach((p,i)=>{const qty=Number(document.getElementById(`qty_${i}`)?.value||0); const unit=document.getElementById(`unit_${i}`)?.value||allowedUnits(p)[0]; if(qty>0){const lineTotal=berekenRegelTotaal(p,qty,unit); items.push({name:p.name,qty,unit,lineTotal,id:p.id}); subtotal+=lineTotal;}}); const levering=document.getElementById('levering').value; const delivery=levering==='Bezorgen'?deliveryFee:0; return {items,subtotal,delivery,totaal:subtotal+delivery,levering};}
-function updatePreview(order){const preview=document.getElementById('orderPreview'); const totaalEl=document.getElementById('totaal'); const deliveryInfo=document.getElementById('deliveryInfo'); deliveryInfo.textContent=order.levering==='Bezorgen'?`Bezorgen + €${deliveryFee}`:'Afhalen'; if(order.items.length===0){preview.innerHTML='Nog geen producten gekozen.';} else {preview.innerHTML=order.items.map(i=>`${i.name} – ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}`).join('<br>'); if(order.delivery>0) preview.innerHTML+=`<br>Bezorgen = €${formatEuro(order.delivery)}`;} totaalEl.textContent=formatEuro(order.totaal);}
+function updatePreview(order){const preview=document.getElementById('orderPreview'); const totaalEl=document.getElementById('totaal'); const deliveryInfo=document.getElementById('deliveryInfo'); deliveryInfo.textContent=order.levering==='Bezorgen'?`Bezorgen vanaf €${deliveryFee}`:'Afhalen'; if(order.items.length===0){preview.innerHTML='Nog geen producten gekozen.';} else {preview.innerHTML=order.items.map(i=>`${i.name} – ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}`).join('<br>'); if(order.delivery>0) preview.innerHTML+=`<br>Bezorgen vanaf €${formatEuro(order.delivery)}`;} totaalEl.textContent=formatEuro(order.totaal);}
 function updateDashboard(){document.getElementById('kpiOmzet').textContent=`€${formatEuro(stats.omzet)}`; document.getElementById('kpiOrders').textContent=stats.orders; document.getElementById('kpiKlanten').textContent=[...new Set(stats.klanten)].length; document.getElementById('kpiLowStock').textContent=producten.filter(p=>Number(p.voorraad)<=3).length; const h=document.getElementById('history'); h.innerHTML=stats.history.slice(-8).reverse().map(x=>`<div class="history-item"><b>${x.naam||'Onbekend'}</b> – €${formatEuro(x.totaal)}<br><span class="small">${x.moment} • ${x.levering}</span><br><span class="small">${x.items.join(', ')}</span></div>`).join('')||'<div class="small">Nog geen bestellingen.</div>';}
 function updateAlles(){updatePreview(getOrderData()); updateDashboard();}
 function kiesPakket(type){resetInputs(); if(type==='klein'){setQty('antroewa',1,'kg'); setQty('amsoi',1,'kg');} else {setQty('antroewa',1,'kg'); setQty('amsoi',1,'kg'); setQty('bitawieri',1,'kg'); setQty('selderij',2,'stuk');} updateAlles();}
 function setQty(productId,qty,unit){const idx=actieveProducten.findIndex(p=>p.id===productId); if(idx>=0){document.getElementById(`qty_${idx}`).value=qty; document.getElementById(`unit_${idx}`).value=unit;}}
 function resetInputs(){actieveProducten.forEach((p,i)=>{if(document.getElementById(`qty_${i}`)){document.getElementById(`qty_${i}`).value=0; document.getElementById(`unit_${i}`).value=allowedUnits(p)[0];}});}
-function bouwWhatsAppBericht(order){const naam=document.getElementById('naam').value.trim(); const telefoon=document.getElementById('telefoon').value.trim(); const adres=document.getElementById('adres').value.trim(); let msg='Nieuwe bestelling Bless Vegs\n'; msg+=`Naam: ${naam||'-'}\n`; msg+=`Telefoon: ${telefoon||'-'}\n`; msg+=`Adres: ${adres||'-'}\n`; msg+=`Levering: ${order.levering}${order.delivery?' (+€3)':''}\n\n`; order.items.forEach(i=>{msg+=`${i.name}: ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}\n`;}); if(order.delivery) msg+=`Bezorgen: €${formatEuro(order.delivery)}\n`; msg+=`\nTotaal: €${formatEuro(order.totaal)}`; return encodeURIComponent(msg);}
+function bouwWhatsAppBericht(order){const naam=document.getElementById('naam').value.trim(); const telefoon=document.getElementById('telefoon').value.trim(); const adres=document.getElementById('adres').value.trim(); let msg='Nieuwe bestelling Bless Vegs\n'; msg+=`Naam: ${naam||'-'}\n`; msg+=`Telefoon: ${telefoon||'-'}\n`; msg+=`Adres: ${adres||'-'}\n`; msg+=`Levering: ${order.levering}${order.delivery?' (vanaf €5)':''}\n\n`; order.items.forEach(i=>{msg+=`${i.name}: ${i.qty} ${i.unit} = €${formatEuro(i.lineTotal)}\n`;}); if(order.delivery) msg+=`Bezorgen: €${formatEuro(order.delivery)}\n`; msg+=`\nTotaal: €${formatEuro(order.totaal)}`; return encodeURIComponent(msg);}
 function verwerkBestelling(order){const naam=document.getElementById('naam').value.trim()||'Onbekend'; stats.omzet+=order.totaal; stats.orders+=1; stats.klanten.push(naam); stats.history.push({naam,totaal:order.totaal,levering:order.levering,moment:new Date().toLocaleString(),items:order.items.map(i=>`${i.name} ${i.qty}${i.unit}`)}); order.items.forEach(item=>{const p=producten.find(x=>x.id===item.id); if(!p) return; if(item.unit==='kg') p.voorraad=Math.max(0,Number((p.voorraad-item.qty).toFixed(2))); if(item.unit==='100g') p.voorraad=Math.max(0,Number((p.voorraad-(item.qty/10)).toFixed(2))); if(item.unit==='stuk') p.voorraad=Math.max(0,p.voorraad-item.qty);}); saveAll(); renderProducten(); updateDashboard();}
 function bestelWhatsApp(){const order=getOrderData(); if(order.items.length===0){alert('Kies eerst een product.'); return;} if(order.totaal<minBestelling){alert(`Minimum bestelling is €${minBestelling}.`); return;} const url=`https://wa.me/${whatsappNummer}?text=${bouwWhatsAppBericht(order)}`; verwerkBestelling(order); window.open(url,'_blank');}
 async function betaalIdeal(){const order=getOrderData(); if(order.items.length===0){alert('Kies eerst een product.'); return;} if(order.totaal<minBestelling){alert(`Minimum bestelling is €${minBestelling}.`); return;} if(!paymentApiUrl){alert('Automatische iDEAL betaling met bedrag staat klaar in de app, maar heeft nog een backend endpoint nodig. Vul paymentApiUrl in met je eigen Mollie backend.'); window.open(`${idealBetaalLink}`,'_blank'); return;} try{const response=await fetch(paymentApiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:order.totaal,name:document.getElementById('naam').value.trim(),phone:document.getElementById('telefoon').value.trim(),address:document.getElementById('adres').value.trim(),delivery:order.levering,items:order.items})}); const data=await response.json(); if(data && data.checkoutUrl){window.open(data.checkoutUrl,'_blank');} else {alert('Geen geldige betaallink ontvangen van de server.');}}catch(err){alert('Automatische betaling kon niet starten. Controleer je backend koppeling.');}}
