@@ -57,7 +57,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
   <div style="font-size:14px;font-weight:500;opacity:.95;">Verse biologische groenten</div>
 </div>
 <header>
-  <img class="header-logo" src="blessvegs-logo.png" alt="Bless Vegs logo" />
+  <img class="header-logo" id="adminRevealLogo" src="blessvegs-logo.png" alt="Bless Vegs logo" />
   <h1 style="font-family:'Trebuchet MS',Arial,sans-serif;font-weight:900;letter-spacing:1px;">🌱 Bless Vegs</h1>
   <p style="font-weight:600;">Biologisch • Niet bespoten • Met liefde geteeld</p>
 </header>
@@ -76,7 +76,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn-soft" type="button" onclick="shareApp()">🔗 Deel app</button>
-        <button class="btn-soft" type="button" onclick="document.getElementById('adminSection').scrollIntoView({behavior:'smooth'})">📦 Naar dashboard</button>
+        
       </div>
     </div>
     <p class="small" style="margin-top:12px"></p>
@@ -139,7 +139,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
         <p class="small" style="margin-top:10px">De betaal knop werkt nu in Tikkie-modus. De klant bestelt via WhatsApp en jij stuurt daarna een Tikkie of betaalverzoek.</p>
       </div>
 
-      <div class="card" id="adminSection">
+      <div class="card hidden" id="adminSection">
         <h2>🔒 Admin dashboard</h2>
         <button class="btn-dark" onclick="openAdminLogin()">Open dashboard</button>
         <div id="adminPanel" class="hidden" style="margin-top:14px">
@@ -246,7 +246,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
 <div class="bottom-bar">
   <button onclick="window.scrollTo({top:0,behavior:'smooth'})">🏠 Home</button>
   <button onclick="document.getElementById('productList').scrollIntoView({behavior:'smooth'})">🥦 Producten</button>
-  <button onclick="document.getElementById('adminSection').scrollIntoView({behavior:'smooth'})">📊 Dashboard</button>
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">⭐ Info</button>
 </div>
 
 <script>
@@ -568,7 +568,7 @@ function switchTab(name){
   document.getElementById(`tab-${name}`).classList.add('active');
 }
 
-function openAdminLogin(){ document.getElementById('adminModal').classList.add('active'); document.getElementById('adminPasswordInput').focus(); }
+function openAdminLogin(){ document.getElementById('adminSection').classList.remove('hidden'); document.getElementById('adminModal').classList.add('active'); document.getElementById('adminPasswordInput').focus(); }
 function closeAdminModal(){ document.getElementById('adminModal').classList.remove('active'); document.getElementById('adminPasswordInput').value=''; }
 function submitAdminLogin(){
   const pw = document.getElementById('adminPasswordInput').value;
@@ -694,6 +694,18 @@ document.addEventListener('input', e => {
 document.addEventListener('change', e => { if(e.target.id === 'levering' || String(e.target.id).startsWith('unit_')) updateSummary(); });
 document.getElementById('adminModal').addEventListener('click', (e)=>{ if(e.target.id === 'adminModal') closeAdminModal(); });
 document.getElementById('adminPasswordInput').addEventListener('keydown', (e)=>{ if(e.key === 'Enter') submitAdminLogin(); });
+
+let adminTapCount = 0;
+let adminTapTimer = null;
+document.getElementById('adminRevealLogo').addEventListener('click', ()=>{
+  adminTapCount += 1;
+  clearTimeout(adminTapTimer);
+  adminTapTimer = setTimeout(()=>{ adminTapCount = 0; }, 1800);
+  if(adminTapCount >= 5){
+    adminTapCount = 0;
+    openAdminLogin();
+  }
+});
 
 async function bootstrap(){
   try {
