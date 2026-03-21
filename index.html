@@ -71,7 +71,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
       <div class="badges">
         <span class="badge">Minimale bestelling €15</span>
         <span class="badge">Afhalen gratis</span>
-        <span class="badge">Bezorgen + €3</span>
+        <span class="badge">Bezorgen + €5</span>
         <span class="badge">Prijs per kg / 100g / stuk</span>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -102,7 +102,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
         <label>Levering</label>
         <select id="levering">
           <option value="Afhalen">Afhalen (gratis)</option>
-          <option value="Bezorgen">Bezorgen (+€3)</option>
+          <option value="Bezorgen">Bezorgen (+€5)</option>
         </select>
       </div>
 
@@ -255,7 +255,7 @@ const CONFIG = {
   supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6d3ZxcHRqaGpsZnJyaXl1cWNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNzQ5NjYsImV4cCI6MjA4OTY1MDk2Nn0.pxU7DNVn_WjyXjBg3KDq8A2oeVqir3_tKGtEQ61kJ4Q',
   whatsappNumber: '31685122481',
   minimumOrder: 15,
-  deliveryFee: 3,
+  deliveryFee: 5,
   adminPassword: 'bless123',
   mollieCheckoutUrl: '',
   checkoutApiUrl: 'https://fzwvqptjhjlfrriyuqcp.functions.supabase.co/create-checkout'
@@ -421,7 +421,7 @@ function buildWhatsAppMessage(order){
   msg += `👤 Naam: ${naam || '-'}\n`;
   msg += `📞 Telefoon: ${telefoon || '-'}\n`;
   msg += `📍 Adres: ${adres || '-'}\n`;
-  msg += `🚚 Levering: ${order.levering}${order.delivery ? ' (+€3)' : ''}\n\n`;
+  msg += `🚚 Levering: ${order.levering}${order.delivery ? ' (+€5)' : ''}\n\n`;
   msg += '*🛒 Bestelling:*\n';
   order.items.forEach(i => { msg += `- ${i.name}: ${i.qty} ${i.unit} = €${euro(i.lineTotal)}\n`; });
   if(order.delivery) msg += `\n🚚 Bezorgkosten: €${euro(order.delivery)}\n`;
