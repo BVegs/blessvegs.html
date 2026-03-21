@@ -4,57 +4,87 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bless Vegs</title>
-<meta name="theme-color" content="#1b5e20" />
+<meta name="theme-color" content="#14532d" />
 <link rel="icon" type="image/png" href="blessvegs-logo.png" />
 <meta property="og:title" content="Bless Vegs" />
 <meta property="og:description" content="Biologisch, niet bespoten en met liefde geteeld." />
 <meta property="og:image" content="blessvegs-logo.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Bless Vegs" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--green:#14532d;--green2:#22c55e;--bg:#f0fdf4;--card:rgba(255,255,255,0.9);--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--orange:#f97316;--shadow:0 20px 40px rgba(0,0,0,.12);--red:#dc2626;--blue:#2563eb;--glass:blur(12px)}
-*{box-sizing:border-box} body{margin:0;font-family:'Poppins',Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#ecfdf5,#f0fdf4);color:var(--text)}
+html{scroll-behavior:smooth}
+:root{--green:#14532d;--green2:#22c55e;--bg:#f0fdf4;--card:rgba(255,255,255,0.92);--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--orange:#f97316;--shadow:0 20px 40px rgba(0,0,0,.12);--red:#dc2626;--blue:#2563eb;--glass:blur(12px);--gold:#f59e0b}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Poppins',Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#ecfdf5,#f0fdf4);color:var(--text)}
 header{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:30px 16px;text-align:center;box-shadow:var(--shadow)}
 .header-logo{width:min(100%,620px);max-height:260px;object-fit:cover;border-radius:24px;display:block;margin:0 auto 16px;background:#fff;box-shadow:var(--shadow)}
-header h1{margin:0;font-size:30px} header p{margin:8px 0 0;opacity:.96}
-.container{max-width:1200px;margin:0 auto;padding:18px}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.card{background:var(--card);backdrop-filter:var(--glass);border-radius:22px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px;border:1px solid rgba(255,255,255,0.4)}
-.card h2,.card h3{margin-top:0}.small{font-size:13px;color:var(--muted)}.muted{color:var(--muted)}.hidden{display:none}.center{text-align:center}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0 0;opacity:.96}
+.container{max-width:1200px;margin:0 auto;padding:18px}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.card{background:var(--card);backdrop-filter:var(--glass);border-radius:22px;padding:20px;box-shadow:var(--shadow);margin-bottom:18px;border:1px solid rgba(255,255,255,0.4)}
+.card h2,.card h3{margin-top:0}.small{font-size:13px;color:var(--muted)}.hidden{display:none}
 .badges{display:flex;flex-wrap:wrap;gap:10px}.badge{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:var(--green);padding:8px 14px;border-radius:999px;font-size:14px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.step{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}.step b{display:block;margin-bottom:4px}
 label{display:block;font-weight:bold;margin:10px 0 6px}.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 input,textarea,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:12px;background:#fff;font-size:15px} textarea{min-height:92px;resize:vertical}
-button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weight:bold;cursor:pointer;transition:all .2s ease} button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.15)}.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn-green{background:linear-gradient(135deg,#25D366,#16a34a);color:#fff}.btn-orange{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff}.btn-dark{background:linear-gradient(135deg,#111827,#1f2937);color:#fff}.btn-soft{background:#e5e7eb;color:#111827}.btn-blue{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff}.btn-red{background:var(--red);color:#fff}
-.product{display:grid;grid-template-columns:76px 1fr 90px 120px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.product:last-child{border-bottom:none}
-.product img{width:76px;height:76px;object-fit:cover;border-radius:16px;background:#f3f4f6;box-shadow:0 6px 14px rgba(0,0,0,.1)}.product-name{font-weight:bold;font-size:17px}.product-price{color:var(--green);font-weight:bold}.product-meta{font-size:13px;color:var(--muted);margin-top:4px}
+button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weight:bold;cursor:pointer;transition:all .2s ease} button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.15)}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn-green{background:linear-gradient(135deg,#25D366,#16a34a);color:#fff}.btn-orange{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff}.btn-dark{background:linear-gradient(135deg,#111827,#1f2937);color:#fff}.btn-soft{background:#e5e7eb;color:#111827}.btn-blue{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff}.btn-red{background:var(--red);color:#fff}
+.product{display:grid;grid-template-columns:76px 1fr 90px 120px;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}.product:last-child{border-bottom:none}
+.product img{width:76px;height:76px;object-fit:cover;border-radius:16px;background:#f3f4f6;box-shadow:0 6px 14px rgba(0,0,0,.1)}
+.product-name{font-weight:bold;font-size:17px}.product-price{color:var(--green);font-weight:bold}.product-meta{font-size:13px;color:var(--muted);margin-top:4px}.product-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.tag{font-size:11px;padding:4px 8px;border-radius:999px;background:#f1f5f9}.tag.stock-low{background:#fff7ed;color:#9a3412}.tag.stock-ok{background:#ecfdf5;color:#166534}
 .total{font-size:28px;font-weight:bold;text-align:right}.summary-box{background:linear-gradient(135deg,#ffffff,#f1f5f9);border-radius:16px;padding:16px;box-shadow:inset 0 2px 6px rgba(0,0,0,.05)}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{background:#f8fafc;border-radius:14px;padding:14px}.kpi .label{font-size:13px;color:var(--muted)}.kpi .value{font-size:24px;font-weight:bold;margin-top:6px}
-.order-card{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;background:#fff}.pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;background:#f3f4f6}.pill-open{background:#fff7ed;color:#9a3412}.pill-done{background:#ecfdf5;color:#166534}.pill-delivery{background:#eff6ff;color:#1d4ed8}
+.order-card{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;background:#fff}.pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;background:#f3f4f6}.pill-open{background:#fff7ed;color:#9a3412}.pill-done{background:#ecfdf5;color:#166534}.pill-paid{background:#eff6ff;color:#1d4ed8}.pill-delivery{background:#fef3c7;color:#92400e}
 .chart-bar{height:12px;background:#e5e7eb;border-radius:999px;overflow:hidden}.chart-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green2))}
 .admin-list .row{display:grid;grid-template-columns:1.2fr .6fr .7fr .7fr .8fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
 .notice{padding:10px 12px;border-radius:12px;background:#f0fdf4;color:#166534;font-size:14px;margin-bottom:10px}.warn{background:#fff7ed;color:#9a3412}.error{background:#fef2f2;color:#991b1b}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{padding:9px 12px;border-radius:999px;background:#e5e7eb;cursor:pointer;font-size:14px;font-weight:bold}.tab.active{background:var(--green);color:#fff}
 .section{display:none}.section.active{display:block}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;z-index:1100;padding:16px}.modal-backdrop.active{display:flex}.modal{width:min(100%,420px);background:#fff;border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.bottom-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:min(94%,560px);background:rgba(17,24,39,.92);backdrop-filter:blur(12px);border-radius:24px;padding:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;z-index:950;box-shadow:var(--shadow)}.bottom-bar button{padding:12px 10px;border-radius:16px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.12)}
 @media (max-width:980px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:700px){.split,.btn-row{grid-template-columns:1fr}.product{grid-template-columns:60px 1fr}.product .ctrl{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}.kpis{grid-template-columns:1fr}.admin-list .row{grid-template-columns:1fr}}
+@media (max-width:700px){.split,.btn-row,.steps{grid-template-columns:1fr}.product{grid-template-columns:60px 1fr}.product .ctrl{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}.kpis{grid-template-columns:1fr}.admin-list .row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div id="splash" style="position:fixed;inset:0;background:linear-gradient(135deg,#14532d,#22c55e);display:flex;align-items:center;justify-content:center;z-index:9999;color:white;font-size:28px;font-weight:bold;">🌱 Bless Vegs</div>
+<div id="splash" style="position:fixed;inset:0;background:linear-gradient(135deg,#14532d,#22c55e);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:white;font-size:28px;font-weight:bold;gap:14px;">
+  <img src="blessvegs-logo.png" alt="Bless Vegs" style="width:140px;height:140px;object-fit:cover;border-radius:28px;box-shadow:0 20px 40px rgba(0,0,0,.25);background:#fff;" />
+  <div>🌱 Bless Vegs</div>
+  <div style="font-size:14px;font-weight:500;opacity:.95;">Verse biologische groenten</div>
+</div>
 <header>
   <img class="header-logo" src="blessvegs-logo.png" alt="Bless Vegs logo" />
   <h1 style="font-family:'Trebuchet MS',Arial,sans-serif;font-weight:900;letter-spacing:1px;">🌱 Bless Vegs</h1>
   <p style="font-weight:600;">Biologisch • Niet bespoten • Met liefde geteeld</p>
 </header>
 
-<div id="cartFloating" style="position:fixed;bottom:20px;right:20px;background:#22c55e;color:white;padding:14px 18px;border-radius:50px;font-weight:bold;box-shadow:0 10px 25px rgba(0,0,0,.2);z-index:999;">🛒 0</div>
+<button id="cartFloating" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:88px;right:20px;background:linear-gradient(135deg,#16a34a,#22c55e);color:white;padding:14px 18px;border-radius:50px;font-weight:bold;box-shadow:0 10px 25px rgba(0,0,0,.2);z-index:999;border:none;">🛒 0</button>
+<button id="installBtn" class="hidden" style="position:fixed;bottom:150px;right:20px;background:linear-gradient(135deg,#111827,#1f2937);color:#fff;padding:12px 16px;border-radius:50px;font-weight:bold;box-shadow:0 10px 25px rgba(0,0,0,.2);z-index:999;border:none;">📲 Installeer app</button>
 
 <div class="container">
   <div class="card">
-    <div class="badges">
-      <span class="badge">Minimale bestelling €10</span>
-      <span class="badge">Afhalen gratis</span>
-      <span class="badge">Bezorgen + €3</span>
-      <span class="badge">Prijs per kg / 100g / stuk</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div class="badges">
+        <span class="badge">Minimale bestelling €15</span>
+        <span class="badge">Afhalen gratis</span>
+        <span class="badge">Bezorgen + €3</span>
+        <span class="badge">Prijs per kg / 100g / stuk</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-soft" type="button" onclick="shareApp()">🔗 Deel app</button>
+        <button class="btn-soft" type="button" onclick="document.getElementById('adminSection').scrollIntoView({behavior:'smooth'})">📦 Naar dashboard</button>
+      </div>
     </div>
     <p class="small" style="margin-top:12px">Deze versie gebruikt Supabase als online database. Daardoor blijven producten, prijzen, voorraad, klanten en orders voor alle telefoons gelijk.</p>
+    <div class="steps">
+      <div class="step"><b>1. Gegevens</b><span class="small">Vul naam, telefoon en adres in</span></div>
+      <div class="step"><b>2. Kies groenten</b><span class="small">Per kg, 100g of stuk</span></div>
+      <div class="step"><b>3. Bestel</b><span class="small">Via WhatsApp of Tikkie</span></div>
+    </div>
     <div id="statusBox" class="notice hidden"></div>
   </div>
 
@@ -62,6 +92,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
     <div>
       <div class="card">
         <h2>🧑‍🌾 Klantgegevens</h2>
+        <div class="small" style="margin-bottom:10px">Vul je gegevens in en kies daarna je producten.</div>
         <div class="split">
           <div><label>Naam</label><input id="naam" placeholder="Naam" /></div>
           <div><label>Telefoon</label><input id="telefoon" placeholder="06..." /></div>
@@ -76,11 +107,14 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
       </div>
 
       <div class="card">
-        <h2>🥦 Producten</h2>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+          <h2 style="margin:0;">🥦 Producten</h2>
+          <input id="searchProducts" placeholder="Zoek product..." style="max-width:240px;" />
+        </div>
         <div id="productList"><div class="small">Producten laden...</div></div>
         <div class="btn-row" style="margin-top:14px">
-          <button class="btn-soft" onclick="selectPakket('klein')">Klein pakket €10</button>
-          <button class="btn-soft" onclick="selectPakket('groot')">Groot pakket €15</button>
+          <button class="btn-soft" onclick="selectPakket('klein')">Klein pakket €15</button>
+          <button class="btn-soft" onclick="selectPakket('groot')">Groot pakket €25</button>
         </div>
       </div>
     </div>
@@ -95,6 +129,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
           </div>
         </div>
         <div id="summaryPreview" class="summary-box small">Nog geen producten gekozen.</div>
+        <div id="checkoutTips" class="small" style="margin-top:10px;">Kies je groenten, controleer het totaal en bestel daarna via WhatsApp of Tikkie.</div>
         <div class="total" style="margin-top:14px">€ <span id="totaal">0.00</span></div>
         <div id="deliveryPreview" class="small" style="text-align:right;margin-top:4px">Afhalen</div>
         <div class="btn-row" style="margin-top:14px">
@@ -104,7 +139,7 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
         <p class="small" style="margin-top:10px">De betaal knop werkt nu in Tikkie-modus. De klant bestelt via WhatsApp en jij stuurt daarna een Tikkie of betaalverzoek.</p>
       </div>
 
-      <div class="card">
+      <div class="card" id="adminSection">
         <h2>🔒 Admin dashboard</h2>
         <button class="btn-dark" onclick="openAdminLogin()">Open dashboard</button>
         <div id="adminPanel" class="hidden" style="margin-top:14px">
@@ -154,6 +189,11 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
               </div>
               <div><input id="prodImage" placeholder="Foto URL" /></div>
             </div>
+            <div class="split">
+              <div><input id="prodImageFile" type="file" accept="image/*" /></div>
+              <div><button class="btn-soft" type="button" onclick="uploadProductImage()">Foto uploaden</button></div>
+            </div>
+            <p class="small">Upload afbeeldingen naar Supabase Storage bucket <b>product-images</b>. Na upload wordt de foto-link automatisch ingevuld.</p>
             <div class="btn-row">
               <button class="btn-blue" onclick="saveProduct()">Opslaan</button>
               <button class="btn-soft" onclick="clearProductForm()">Nieuw product</button>
@@ -177,7 +217,8 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
               <b>Bezorgkosten:</b> €<span id="cfgDelivery"></span><br>
               <b>Minimum bestelling:</b> €<span id="cfgMinimum"></span><br>
               <b>Supabase URL:</b> <span id="cfgSupabase"></span><br>
-              <b>Checkout API:</b> <span id="cfgCheckoutApi"></span>
+              <b>Checkout API:</b> <span id="cfgCheckoutApi"></span><br>
+              <b>Storage bucket:</b> product-images (publiek)
             </div>
             <div class="btn-row" style="margin-top:10px">
               <button class="btn-red" onclick="resetAppStats()">Reset statistieken in dashboard</button>
@@ -190,12 +231,30 @@ button{border:none;border-radius:16px;padding:14px 16px;font-size:15px;font-weig
   </div>
 </div>
 
+<div id="adminModal" class="modal-backdrop">
+  <div class="modal">
+    <h3 style="margin-top:0;">Admin login</h3>
+    <p class="small">Alleen voor Bless Vegs beheer.</p>
+    <input id="adminPasswordInput" type="password" placeholder="Voer wachtwoord in" />
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="btn-dark" onclick="submitAdminLogin()">Inloggen</button>
+      <button class="btn-soft" onclick="closeAdminModal()">Annuleren</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-bar">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">🏠 Home</button>
+  <button onclick="document.getElementById('productList').scrollIntoView({behavior:'smooth'})">🥦 Producten</button>
+  <button onclick="document.getElementById('adminSection').scrollIntoView({behavior:'smooth'})">📊 Dashboard</button>
+</div>
+
 <script>
 const CONFIG = {
   supabaseUrl: 'https://fzwvqptjhjlfrriyuqcp.supabase.co',
   supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6d3ZxcHRqaGpsZnJyaXl1cWNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNzQ5NjYsImV4cCI6MjA4OTY1MDk2Nn0.pxU7DNVn_WjyXjBg3KDq8A2oeVqir3_tKGtEQ61kJ4Q',
   whatsappNumber: '31685122481',
-  minimumOrder: 10,
+  minimumOrder: 15,
   deliveryFee: 3,
   adminPassword: 'bless123',
   mollieCheckoutUrl: '',
@@ -209,9 +268,7 @@ let customers = [];
 
 function initSupabaseClient(){
   if (sbClient) return sbClient;
-  if (!window.supabase || typeof window.supabase.createClient !== 'function') {
-    throw new Error('Supabase library niet geladen');
-  }
+  if (!window.supabase || typeof window.supabase.createClient !== 'function') throw new Error('Supabase library niet geladen');
   sbClient = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey);
   return sbClient;
 }
@@ -226,6 +283,7 @@ function showStatus(message, type='ok'){
   window._statusTimer = setTimeout(()=>box.classList.add('hidden'), 5000);
 }
 function escapeHtml(str=''){ return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function stockTag(voorraad){ return Number(voorraad) <= 5 ? '<span class="tag stock-low">Lage voorraad</span>' : '<span class="tag stock-ok">Op voorraad</span>'; }
 
 async function loadProducts(){
   const client = initSupabaseClient();
@@ -237,16 +295,21 @@ async function loadProducts(){
 
 function renderProducts(){
   const list = document.getElementById('productList');
-  if(!producten.length){ list.innerHTML = '<div class="small">Nog geen producten gevonden in database.</div>'; return; }
-  list.innerHTML = producten.map((p, i) => `
+  const search = (document.getElementById('searchProducts')?.value || '').toLowerCase().trim();
+  const filtered = producten.filter(p => !search || String(p.name || '').toLowerCase().includes(search));
+  if(!filtered.length){ list.innerHTML = '<div class="small">Geen producten gevonden.</div>'; renderAdminProducts(); updateSummary(); return; }
+  list.innerHTML = filtered.map((p) => {
+    const i = producten.findIndex(x => x.id === p.id);
+    return `
     <div class="product">
       <img src="${escapeHtml(p.foto || '')}" alt="${escapeHtml(p.name || '')}" onerror="this.style.visibility='hidden'" />
       <div>
         <div class="product-name">${escapeHtml(p.name)}</div>
         <div class="product-price">€${euro(p.prijs)} per kg</div>
         <div class="product-meta">Beschikbaar: ${escapeHtml(p.voorraad)} ${p.voorraad_type === 'stuk' ? 'stuks' : 'kg'}</div>
+        <div class="product-tags"><span class="tag">Biologisch</span>${stockTag(p.voorraad)}</div>
       </div>
-      <div class="ctrl"><input id="qty_${i}" type="number" min="0" step="1" value="0" /></div>
+      <div class="ctrl"><input id="qty_${i}" type="number" min="0" step="1" value="${document.getElementById(`qty_${i}`)?.value || 0}" /></div>
       <div class="ctrl">
         <select id="unit_${i}">
           <option value="kg">kg</option>
@@ -254,8 +317,8 @@ function renderProducts(){
           <option value="stuk">stuk</option>
         </select>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
   renderAdminProducts();
   updateSummary();
 }
@@ -306,13 +369,10 @@ function updateSummary(){
   const total = document.getElementById('totaal');
   const delivery = document.getElementById('deliveryPreview');
   delivery.textContent = order.levering === 'Bezorgen' ? `Bezorgen + €${CONFIG.deliveryFee}` : 'Afhalen';
-  if(!order.items.length){
-    box.innerHTML = 'Nog geen producten gekozen.';
-  } else {
-    box.innerHTML = order.items.map(i => `${escapeHtml(i.name)} – ${i.qty} ${i.unit} = €${euro(i.lineTotal)}`).join('<br>') + (order.delivery ? `<br>Bezorgen = €${euro(order.delivery)}` : '');
-  }
+  if(!order.items.length) box.innerHTML = 'Nog geen producten gekozen.';
+  else box.innerHTML = order.items.map(i => `${escapeHtml(i.name)} – ${i.qty} ${i.unit} = €${euro(i.lineTotal)}`).join('<br>') + (order.delivery ? `<br>Bezorgen = €${euro(order.delivery)}` : '');
   total.textContent = euro(order.totaal);
-  if(cartBtn){ cartBtn.innerHTML = `🛒 ${order.items.length}`; }
+  if(cartBtn) cartBtn.innerHTML = `🛒 ${order.items.length}`;
 }
 
 function clearSelections(){
@@ -357,41 +417,17 @@ function buildWhatsAppMessage(order){
   const naam = document.getElementById('naam').value.trim();
   const telefoon = document.getElementById('telefoon').value.trim();
   const adres = document.getElementById('adres').value.trim();
-
-  let msg = '🥦 *Bless Vegs Bestelling* 🥦
-
-';
-  msg += `👤 Naam: ${naam || '-'}
-`;
-  msg += `📞 Telefoon: ${telefoon || '-'}
-`;
-  msg += `📍 Adres: ${adres || '-'}
-`;
-  msg += `🚚 Levering: ${order.levering}${order.delivery ? ' (+€3)' : ''}
-
-`;
-  msg += '*🛒 Bestelling:*
-';
-
-  order.items.forEach(i => {
-    msg += `- ${i.name}: ${i.qty} ${i.unit} = €${euro(i.lineTotal)}
-`;
-  });
-
-  if(order.delivery){
-    msg += `
-🚚 Bezorgkosten: €${euro(order.delivery)}
-`;
-  }
-
-  msg += `
-💰 *Totaal: €${euro(order.totaal)}*
-
-`;
-  msg += '💳 Betaling via Tikkie of betaalverzoek.
-';
+  let msg = '🥦 *Bless Vegs Bestelling* 🥦\n\n';
+  msg += `👤 Naam: ${naam || '-'}\n`;
+  msg += `📞 Telefoon: ${telefoon || '-'}\n`;
+  msg += `📍 Adres: ${adres || '-'}\n`;
+  msg += `🚚 Levering: ${order.levering}${order.delivery ? ' (+€3)' : ''}\n\n`;
+  msg += '*🛒 Bestelling:*\n';
+  order.items.forEach(i => { msg += `- ${i.name}: ${i.qty} ${i.unit} = €${euro(i.lineTotal)}\n`; });
+  if(order.delivery) msg += `\n🚚 Bezorgkosten: €${euro(order.delivery)}\n`;
+  msg += `\n💰 *Totaal: €${euro(order.totaal)}*\n\n`;
+  msg += '💳 Betaling via Tikkie of betaalverzoek.\n';
   msg += 'Na betaling wordt je bestelling bevestigd ✅';
-
   return encodeURIComponent(msg);
 }
 
@@ -418,18 +454,9 @@ async function submitOrderWhatsApp(){
   const telefoon = document.getElementById('telefoon').value.trim();
   const adres = document.getElementById('adres').value.trim();
   const customerId = await ensureCustomer(naam, telefoon, adres);
-
   const productsText = order.items.map(i => `${i.name} ${i.qty}${i.unit}`).join(', ');
-  const { error } = await client.from('orders').insert([{ 
-    customer_id: customerId,
-    naam, telefoon, adres,
-    levering: order.levering,
-    producten: productsText,
-    totaal: order.totaal,
-    status: 'open'
-  }]);
+  const { error } = await client.from('orders').insert([{ customer_id: customerId, naam, telefoon, adres, levering: order.levering, producten: productsText, totaal: order.totaal, status: 'open' }]);
   if(error){ showStatus('Bestelling kon niet worden opgeslagen. Controleer Supabase setup.', 'error'); return; }
-
   await reduceStock(order.items);
   await Promise.all([loadProducts(), loadOrders(), loadCustomers()]);
   window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${buildWhatsAppMessage(order)}`, '_blank');
@@ -438,15 +465,8 @@ async function submitOrderWhatsApp(){
 
 async function payIdeal(){
   const order = currentOrder();
-  if(!order.items.length){
-    showStatus('Kies eerst minstens één product.', 'warn');
-    return;
-  }
-  if(order.totaal < CONFIG.minimumOrder){
-    showStatus(`Minimum bestelling is €${CONFIG.minimumOrder}.`, 'warn');
-    return;
-  }
-
+  if(!order.items.length){ showStatus('Kies eerst minstens één product.', 'warn'); return; }
+  if(order.totaal < CONFIG.minimumOrder){ showStatus(`Minimum bestelling is €${CONFIG.minimumOrder}.`, 'warn'); return; }
   const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${buildWhatsAppMessage(order)}`;
   window.open(whatsappUrl, '_blank');
   showStatus('WhatsApp geopend. Stuur daarna een Tikkie of betaalverzoek naar de klant.');
@@ -457,41 +477,53 @@ async function loadOrders(){
   const { data, error } = await client.from('orders').select('*').order('created_at', { ascending:false });
   if(error){ document.getElementById('ordersList').innerHTML = '<div class="small">Orders konden niet geladen worden.</div>'; return; }
   orders = data || [];
-  renderOrders();
+  renderOrders(orders);
   renderDashboard();
 }
 
-function renderOrders(){
-  const box = document.getElementById('ordersList');
-  if(!orders.length){ box.innerHTML = '<div class="small">Nog geen orders.</div>'; return; }
-  box.innerHTML = orders.map(o => `
+function renderOrders(list){
+  const el = document.getElementById('ordersList');
+  if(!el) return;
+  if(!list.length){ el.innerHTML = '<p class="small">Geen orders</p>'; return; }
+  el.innerHTML = list.map(o=>`
     <div class="order-card">
       <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap">
         <div>
-          <b>${escapeHtml(o.naam || 'Onbekend')}</b> – €${euro(o.totaal)}<br>
+          <b>${escapeHtml(o.naam || '-')}</b><br>
           <span class="small">${escapeHtml(o.telefoon || '-')} • ${escapeHtml(o.adres || '-')}</span><br>
           <span class="small">${escapeHtml(o.producten || '')}</span><br>
           <span class="small">${new Date(o.created_at).toLocaleString()}</span>
         </div>
         <div style="text-align:right">
-          <span class="pill ${o.status === 'geleverd' ? 'pill-done' : 'pill-open'}">${escapeHtml(o.status || 'open')}</span><br>
+          <span class="pill ${o.status === 'geleverd' ? 'pill-done' : o.status === 'betaald' ? 'pill-paid' : 'pill-open'}">${escapeHtml(o.status || 'open')}</span><br>
           <span class="pill ${o.levering === 'Bezorgen' ? 'pill-delivery' : ''}">${escapeHtml(o.levering || 'Afhalen')}</span>
         </div>
       </div>
+      <div style="margin-top:8px;font-weight:bold;">€${euro(o.totaal)}</div>
       <div class="btn-row" style="margin-top:10px">
-        <button class="btn-soft" onclick="updateOrderStatus(${o.id}, 'open')">Markeer open</button>
-        <button class="btn-blue" onclick="updateOrderStatus(${o.id}, 'geleverd')">Markeer geleverd</button>
+        <button class="btn-green" onclick="updateOrderStatus(${o.id}, 'betaald')">Betaald</button>
+        <button class="btn-blue" onclick="updateOrderStatus(${o.id}, 'geleverd')">Geleverd</button>
       </div>
-    </div>
-  `).join('');
+      <div class="btn-row" style="margin-top:8px">
+        <button class="btn-soft" onclick="updateOrderStatus(${o.id}, 'open')">Reset</button>
+        <button class="btn-soft" onclick="copyOrderText(${o.id})">Kopieer</button>
+      </div>
+    </div>`).join('');
+}
+
+function copyOrderText(id){
+  const order = orders.find(o => o.id === id);
+  if(!order) return;
+  const text = `${order.naam} - ${order.telefoon}\n${order.producten}\n€${euro(order.totaal)}\nStatus: ${order.status}`;
+  navigator.clipboard.writeText(text).then(()=>showStatus('Order gekopieerd.'));
 }
 
 async function updateOrderStatus(id, status){
   const client = initSupabaseClient();
   const { error } = await client.from('orders').update({ status }).eq('id', id);
-  if(error){ showStatus('Status wijzigen mislukt.', 'error'); return; }
+  if(error){ console.error(error); showStatus('Status update mislukt','error'); return; }
+  showStatus(`Order ${status} gezet`);
   loadOrders();
-  showStatus(`Orderstatus aangepast naar ${status}.`);
 }
 
 async function loadCustomers(){
@@ -511,8 +543,7 @@ function renderCustomers(){
       <b>${escapeHtml(c.naam || 'Onbekend')}</b><br>
       <span class="small">${escapeHtml(c.telefoon || '-')}</span><br>
       <span class="small">${escapeHtml(c.adres || '-')}</span>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function renderDashboard(){
@@ -522,15 +553,13 @@ function renderDashboard(){
   document.getElementById('kpiOrders').textContent = orders.length;
   document.getElementById('kpiCustomers').textContent = customers.length;
   document.getElementById('kpiOpen').textContent = openOrders;
-
   const recent = orders.slice(0, 8).reverse();
   const max = Math.max(...recent.map(o => Number(o.totaal || 0)), 1);
   document.getElementById('miniChart').innerHTML = recent.map(o => `
     <div style="margin-bottom:10px">
       <div class="small">${escapeHtml(o.naam || 'Onbekend')} – €${euro(o.totaal)}</div>
       <div class="chart-bar"><div class="chart-fill" style="width:${(Number(o.totaal || 0)/max)*100}%"></div></div>
-    </div>
-  `).join('') || '<div class="small">Nog geen data.</div>';
+    </div>`).join('') || '<div class="small">Nog geen data.</div>';
 }
 
 function switchTab(name){
@@ -539,14 +568,15 @@ function switchTab(name){
   document.getElementById(`tab-${name}`).classList.add('active');
 }
 
-function openAdminLogin(){
-  const pw = prompt('Voer admin wachtwoord in:');
+function openAdminLogin(){ document.getElementById('adminModal').classList.add('active'); document.getElementById('adminPasswordInput').focus(); }
+function closeAdminModal(){ document.getElementById('adminModal').classList.remove('active'); document.getElementById('adminPasswordInput').value=''; }
+function submitAdminLogin(){
+  const pw = document.getElementById('adminPasswordInput').value;
   if(pw === CONFIG.adminPassword){
+    closeAdminModal();
     document.getElementById('adminPanel').classList.remove('hidden');
     loadOrders(); loadCustomers(); loadProducts();
-  } else if (pw !== null) {
-    showStatus('Onjuist admin wachtwoord.', 'error');
-  }
+  } else showStatus('Onjuist admin wachtwoord.', 'error');
 }
 function closeAdmin(){ document.getElementById('adminPanel').classList.add('hidden'); }
 
@@ -562,6 +592,21 @@ function fillProductForm(p){
 function clearProductForm(){
   ['prodId','prodName','prodPrice','prodStock','prodImage'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('prodStockType').value = 'kg';
+  const fileInput = document.getElementById('prodImageFile'); if(fileInput) fileInput.value = '';
+}
+
+async function uploadProductImage(){
+  const client = initSupabaseClient();
+  const fileInput = document.getElementById('prodImageFile');
+  const file = fileInput?.files?.[0];
+  if(!file){ showStatus('Kies eerst een afbeelding om te uploaden.', 'warn'); return; }
+  const safeName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '-')}`;
+  const filePath = `products/${safeName}`;
+  const { error: uploadError } = await client.storage.from('product-images').upload(filePath, file, { upsert: true });
+  if(uploadError){ console.error(uploadError); showStatus('Uploaden van afbeelding mislukt. Controleer of bucket product-images bestaat en publiek is.', 'error'); return; }
+  const { data } = client.storage.from('product-images').getPublicUrl(filePath);
+  if(data?.publicUrl){ document.getElementById('prodImage').value = data.publicUrl; showStatus('Afbeelding geüpload en foto-link ingevuld.'); }
+  else showStatus('Upload gelukt, maar publieke URL kon niet worden gemaakt.', 'warn');
 }
 
 async function saveProduct(){
@@ -573,14 +618,11 @@ async function saveProduct(){
   const voorraad_type = document.getElementById('prodStockType').value;
   const foto = document.getElementById('prodImage').value.trim();
   if(!name || (!prijs && prijs !== 0) || voorraad < 0){ showStatus('Vul naam, prijs en voorraad goed in.', 'warn'); return; }
-
   let error;
   if(id){ ({ error } = await client.from('producten').update({ name, prijs, voorraad, voorraad_type, foto }).eq('id', id)); }
   else { ({ error } = await client.from('producten').insert([{ name, prijs, voorraad, voorraad_type, foto }])); }
   if(error){ showStatus('Product opslaan mislukt.', 'error'); return; }
-  clearProductForm();
-  loadProducts();
-  showStatus('Product opgeslagen.');
+  clearProductForm(); loadProducts(); showStatus('Product opgeslagen.');
 }
 
 async function deleteProduct(id){
@@ -588,37 +630,24 @@ async function deleteProduct(id){
   if(!confirm('Product verwijderen?')) return;
   const { error } = await client.from('producten').delete().eq('id', id);
   if(error){ showStatus('Product verwijderen mislukt.', 'error'); return; }
-  loadProducts();
-  showStatus('Product verwijderd.');
+  loadProducts(); showStatus('Product verwijderd.');
 }
 
 function exportCSV(rows, filename){
   if(!rows.length){ showStatus('Geen data om te exporteren.', 'warn'); return; }
   const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
+  const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
 }
-function exportOrdersCSV(){
-  exportCSV([
-    ['id','naam','telefoon','adres','levering','producten','totaal','status','created_at'],
-    ...orders.map(o => [o.id,o.naam,o.telefoon,o.adres,o.levering,o.producten,o.totaal,o.status,o.created_at])
-  ], 'blessvegs-orders.csv');
-}
-function exportCustomersCSV(){
-  exportCSV([
-    ['id','naam','telefoon','adres','created_at','updated_at'],
-    ...customers.map(c => [c.id,c.naam,c.telefoon,c.adres,c.created_at,c.updated_at])
-  ], 'blessvegs-customers.csv');
-}
+function exportOrdersCSV(){ exportCSV([['id','naam','telefoon','adres','levering','producten','totaal','status','created_at'], ...orders.map(o => [o.id,o.naam,o.telefoon,o.adres,o.levering,o.producten,o.totaal,o.status,o.created_at])], 'blessvegs-orders.csv'); }
+function exportCustomersCSV(){ exportCSV([['id','naam','telefoon','adres','created_at','updated_at'], ...customers.map(c => [c.id,c.naam,c.telefoon,c.adres,c.created_at,c.updated_at])], 'blessvegs-customers.csv'); }
 
 async function resetAppStats(){
   const client = initSupabaseClient();
   if(!confirm('Alle orders verwijderen? Dit is alleen voor testen.')) return;
   const { error } = await client.from('orders').delete().neq('id', 0);
   if(error){ showStatus('Reset mislukt.', 'error'); return; }
-  loadOrders();
-  showStatus('Orders verwijderd.');
+  loadOrders(); showStatus('Orders verwijderd.');
 }
 
 function initConfigView(){
@@ -629,42 +658,55 @@ function initConfigView(){
   document.getElementById('cfgCheckoutApi').textContent = CONFIG.checkoutApiUrl || 'nog niet ingesteld';
 }
 
+function shareApp(){
+  const shareData = { title: 'Bless Vegs', text: 'Bestel verse biologische groenten bij Bless Vegs', url: window.location.href };
+  if(navigator.share) navigator.share(shareData).catch(()=>{});
+  else navigator.clipboard.writeText(window.location.href).then(()=>showStatus('Link gekopieerd.'));
+}
+
+function setupInstallPrompt(){
+  let deferredPrompt = null;
+  const installBtn = document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); deferredPrompt = e; installBtn.classList.remove('hidden');
+  });
+  installBtn?.addEventListener('click', async () => {
+    if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; installBtn.classList.add('hidden');
+  });
+}
+
+function registerServiceWorker(){ if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+
 function runClientSelfTests(){
   console.assert(typeof CONFIG.supabaseUrl === 'string' && CONFIG.supabaseUrl.includes('supabase.co'), 'Supabase URL ontbreekt of is ongeldig');
   console.assert(typeof CONFIG.supabaseAnonKey === 'string' && CONFIG.supabaseAnonKey.length > 20, 'Supabase anon key ontbreekt');
   console.assert(typeof initSupabaseClient === 'function', 'initSupabaseClient ontbreekt');
   console.assert(typeof CONFIG.checkoutApiUrl === 'string', 'checkoutApiUrl moet een string zijn');
+  console.assert(euro(12.5) === '12.50', 'euro formatter fout');
+  console.assert(calcLineTotal({ prijs: 5 }, 2, 'kg') === 10, 'kg berekening fout');
+  console.assert(calcLineTotal({ prijs: 5 }, 2, '100g') === 1, '100g berekening fout');
 }
 
 document.addEventListener('input', e => {
-  if(['naam','telefoon','adres'].includes(e.target.id) || String(e.target.id).startsWith('qty_')) updateSummary();
+  if(['naam','telefoon','adres','searchProducts'].includes(e.target.id) || String(e.target.id).startsWith('qty_')) updateSummary();
+  if(e.target.id === 'searchProducts') renderProducts();
 });
-document.addEventListener('change', e => {
-  if(e.target.id === 'levering' || String(e.target.id).startsWith('unit_')) updateSummary();
-});
+document.addEventListener('change', e => { if(e.target.id === 'levering' || String(e.target.id).startsWith('unit_')) updateSummary(); });
+document.getElementById('adminModal').addEventListener('click', (e)=>{ if(e.target.id === 'adminModal') closeAdminModal(); });
+document.getElementById('adminPasswordInput').addEventListener('keydown', (e)=>{ if(e.key === 'Enter') submitAdminLogin(); });
 
 async function bootstrap(){
   try {
-    runClientSelfTests();
-    initConfigView();
-    initSupabaseClient();
-    await loadProducts();
-    await loadOrders();
-    await loadCustomers();
-    updateSummary();
-    showStatus('Bless Vegs geladen.');
+    runClientSelfTests(); initConfigView(); initSupabaseClient(); setupInstallPrompt(); registerServiceWorker();
+    await loadProducts(); await loadOrders(); await loadCustomers(); updateSummary(); showStatus('Bless Vegs geladen.');
   } catch (err) {
-    console.error(err);
-    showStatus('App kon niet starten. Controleer de Supabase script-link en instellingen.', 'error');
+    console.error(err); showStatus('App kon niet starten. Controleer de Supabase script-link en instellingen.', 'error');
   }
 }
 
-setTimeout(()=>{
-  const splash = document.getElementById('splash');
-  if(splash) splash.style.display='none';
-},1500);
-
+setTimeout(()=>{ const splash = document.getElementById('splash'); if(splash) splash.style.display='none'; },1500);
 bootstrap();
+window.__BLESSVEGS_TESTS__ = { euro, calcLineTotal, currentOrder };
 </script>
 </body>
 </html>
