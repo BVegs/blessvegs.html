@@ -1,7 +1,7 @@
 {
   "name": "Bless Vegs",
   "short_name": "Bless Vegs",
-  "start_url": "/blessvegs.html/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#14532d",
   "theme_color": "#14532d",
